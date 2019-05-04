@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="JF8-zE-NsL">
             <objects>
-                <collectionViewController storyboardIdentifier="initial" id="w7N-Hu-oHf" customClass="ViewController" customModule="CatPower" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="RootVC" id="w7N-Hu-oHf" customClass="ViewController" customModule="CatPower" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="f9C-Rh-W7a">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -162,29 +162,14 @@
             </objects>
             <point key="canvasLocation" x="-31.199999999999999" y="-92.203898050974516"/>
         </scene>
-        <!--View Controller-->
+        <!--LoginVC-->
         <scene sceneID="cIs-pg-kof">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" id="IZq-gf-mfi" sceneMemberID="viewController">
+                <viewController id="IZq-gf-mfi" customClass="LoginVC" customModule="CatPower" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lmc-D6-SPH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="99s-Ua-8X3" customClass="LoginView" customModule="CatPower" customModuleProvider="target">
-                                <rect key="frame" x="20" y="233.5" width="335" height="200"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="NP5-U2-1s2"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="IUw-5G-9eK" firstAttribute="trailing" secondItem="99s-Ua-8X3" secondAttribute="trailing" constant="20" id="6uK-hn-UoM"/>
-                            <constraint firstItem="99s-Ua-8X3" firstAttribute="leading" secondItem="IUw-5G-9eK" secondAttribute="leading" constant="20" id="NJp-g0-EYb"/>
-                            <constraint firstItem="99s-Ua-8X3" firstAttribute="centerY" secondItem="lmc-D6-SPH" secondAttribute="centerY" id="d5L-ZP-mOu"/>
-                            <constraint firstItem="99s-Ua-8X3" firstAttribute="centerX" secondItem="lmc-D6-SPH" secondAttribute="centerX" id="jLE-9T-Iym"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="IUw-5G-9eK"/>
                     </view>
                     <connections>
@@ -196,29 +181,14 @@
             </objects>
             <point key="canvasLocation" x="-894" y="-92"/>
         </scene>
-        <!--View Controller-->
+        <!--SignupVC-->
         <scene sceneID="7ML-Rj-PLc">
             <objects>
-                <viewController id="YjU-CE-g5x" sceneMemberID="viewController">
+                <viewController id="YjU-CE-g5x" customClass="SignupVC" customModule="CatPower" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LNr-xQ-1oi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9BL-EW-ob1" customClass="SignUpView" customModule="CatPower" customModuleProvider="target">
-                                <rect key="frame" x="30" y="233.5" width="315" height="200"/>
-                                <color key="backgroundColor" red="0.6320050961" green="0.64117140009999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="wYW-gf-H66"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="9BL-EW-ob1" firstAttribute="leading" secondItem="swV-9L-k3L" secondAttribute="leading" constant="30" id="5ve-FL-Dts"/>
-                            <constraint firstItem="9BL-EW-ob1" firstAttribute="centerX" secondItem="LNr-xQ-1oi" secondAttribute="centerX" id="Cg0-Ka-uUL"/>
-                            <constraint firstItem="9BL-EW-ob1" firstAttribute="centerY" secondItem="LNr-xQ-1oi" secondAttribute="centerY" id="Scm-Kt-0ab"/>
-                            <constraint firstItem="swV-9L-k3L" firstAttribute="trailing" secondItem="9BL-EW-ob1" secondAttribute="trailing" constant="30" id="ico-J6-pew"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="swV-9L-k3L"/>
                     </view>
                     <navigationItem key="navigationItem" id="MEa-Eg-RzS"/>
