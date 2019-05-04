@@ -16,6 +16,10 @@
 		4DBAF5DF226F2A0D00C1BA36 /* picture in Resources */ = {isa = PBXBuildFile; fileRef = 4DBAF5DE226F2A0D00C1BA36 /* picture */; };
 		4DBAF5EF22702BE000C1BA36 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBAF5EE22702BE000C1BA36 /* CategoryModel.swift */; };
 		4DBAF5F122702ED400C1BA36 /* DefaultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBAF5F022702ED400C1BA36 /* DefaultData.swift */; };
+		E2A6D479227CD1D700740021 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2A6D478227CD1D700740021 /* LoginView.xib */; };
+		E2A6D47B227CD1F500740021 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6D47A227CD1F500740021 /* LoginView.swift */; };
+		E2A6D47D227CF41E00740021 /* SignUpView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2A6D47C227CF41E00740021 /* SignUpView.xib */; };
+		E2A6D47F227CF43700740021 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6D47E227CF43700740021 /* SignUpView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +34,10 @@
 		4DBAF5DE226F2A0D00C1BA36 /* picture */ = {isa = PBXFileReference; lastKnownFileType = folder; path = picture; sourceTree = "<group>"; };
 		4DBAF5EE22702BE000C1BA36 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		4DBAF5F022702ED400C1BA36 /* DefaultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultData.swift; sourceTree = "<group>"; };
+		E2A6D478227CD1D700740021 /* LoginView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
+		E2A6D47A227CD1F500740021 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		E2A6D47C227CF41E00740021 /* SignUpView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignUpView.xib; sourceTree = "<group>"; };
+		E2A6D47E227CF43700740021 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +80,10 @@
 				4DBAF5D4226E20F100C1BA36 /* Info.plist */,
 				4DBAF5EE22702BE000C1BA36 /* CategoryModel.swift */,
 				4DBAF5F022702ED400C1BA36 /* DefaultData.swift */,
+				E2A6D478227CD1D700740021 /* LoginView.xib */,
+				E2A6D47A227CD1F500740021 /* LoginView.swift */,
+				E2A6D47C227CF41E00740021 /* SignUpView.xib */,
+				E2A6D47E227CF43700740021 /* SignUpView.swift */,
 			);
 			path = CatPower;
 			sourceTree = "<group>";
@@ -134,9 +146,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2A6D47D227CF41E00740021 /* SignUpView.xib in Resources */,
 				4DBAF5D3226E20F100C1BA36 /* LaunchScreen.storyboard in Resources */,
 				4DBAF5D0226E20F100C1BA36 /* Assets.xcassets in Resources */,
 				4DBAF5CE226E20EF00C1BA36 /* Main.storyboard in Resources */,
+				E2A6D479227CD1D700740021 /* LoginView.xib in Resources */,
 				4DBAF5DF226F2A0D00C1BA36 /* picture in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,8 +162,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2A6D47B227CD1F500740021 /* LoginView.swift in Sources */,
 				4DBAF5F122702ED400C1BA36 /* DefaultData.swift in Sources */,
 				4DBAF5DD226E441D00C1BA36 /* MoneyView.swift in Sources */,
+				E2A6D47F227CF43700740021 /* SignUpView.swift in Sources */,
 				4DBAF5EF22702BE000C1BA36 /* CategoryModel.swift in Sources */,
 				4DBAF5CB226E20EF00C1BA36 /* ViewController.swift in Sources */,
 				4DBAF5C9226E20EF00C1BA36 /* AppDelegate.swift in Sources */,
@@ -299,6 +315,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = CatPower/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -316,6 +333,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = CatPower/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
