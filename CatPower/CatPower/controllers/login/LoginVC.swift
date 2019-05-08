@@ -97,21 +97,25 @@ class LoginVC: UIViewController {
         var password: String = ""
 
         //validating fields
-        if let username_text = self.usernameTextInput.text {
-            username = username_text
-        } else {
+        if self.usernameTextInput.text == nil || self.usernameTextInput.text?.isEmpty == true{
             self.usernameTextInput.layer.borderColor = UIColor.red.cgColor
+            self.usernameTextInput.layer.borderWidth = 2
             self.usernameTextInput.placeholder = "Input username!"
-        }
-        if let password_text = self.passwordInput.text {
-            password = password_text
         } else {
-            self.passwordInput.layer.borderColor = UIColor.red.cgColor
-            self.passwordInput.placeholder = "Input password!"
+            username = self.usernameTextInput.text!
         }
-        if !username.isEmpty || !password.isEmpty {
+        if self.passwordInput.text == nil || self.passwordInput.text?.isEmpty == true {
+            self.passwordInput.layer.borderColor = UIColor.red.cgColor
+            self.passwordInput.layer.borderWidth = 2
+            self.passwordInput.placeholder = "Input password!"
+        } else {
+            password = self.passwordInput.text!
+        }
+
+        if username.isEmpty || password.isEmpty {
             return
         }
+
         var user = Auth.login(username: username, password: password)
         if user != nil {
             let vc = storyboard?.instantiateViewController(withIdentifier: "MainVC") as! ViewController
