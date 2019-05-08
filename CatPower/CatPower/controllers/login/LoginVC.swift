@@ -93,10 +93,29 @@ class LoginVC: UIViewController {
     }
 
     @objc func GoToMainView(sender: UIButton) {
-        // TODO: login API
-        var login = true
-        if login {
-            let vc = storyboard?.instantiateViewController(withIdentifier: "RootVC") as! UIViewController
+        var username: String = ""
+        var password: String = ""
+
+        //validating fields
+        if let username_text = self.usernameTextInput.text {
+            username = username_text
+        } else {
+            self.usernameTextInput.layer.borderColor = UIColor.red.cgColor
+            self.usernameTextInput.placeholder = "Input username!"
+        }
+        if let password_text = self.passwordInput.text {
+            password = password_text
+        } else {
+            self.passwordInput.layer.borderColor = UIColor.red.cgColor
+            self.passwordInput.placeholder = "Input password!"
+        }
+        if !username.isEmpty || !password.isEmpty {
+            return
+        }
+        var user = Auth.login(username: username, password: password)
+        if user != nil {
+            let vc = storyboard?.instantiateViewController(withIdentifier: "MainVC") as! ViewController
+            vc.user = user!
             let navVC = UINavigationController(rootViewController: vc)
             present(navVC, animated: true, completion: nil)
         }

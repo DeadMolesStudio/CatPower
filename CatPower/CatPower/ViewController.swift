@@ -18,12 +18,13 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     var incomeData = [CategoryStr]()
     var costsData = [CategoryStr]()
+
+    var user: User = User()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.incomeData = incomeDefaultCategories
         self.costsData = costsDefaultCategories
-        
         setupNavBarItems()
         setBalanceInfo()
     }
