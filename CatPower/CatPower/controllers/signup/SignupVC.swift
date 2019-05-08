@@ -10,52 +10,65 @@ import UIKit
 
 class SignupVC: UIViewController {
 
-    var teamLabel: UILabel
-    var usernameTextInput: UITextField
-    var emailInput: UITextField
-    var passwordInput: UITextField
-    var repeatPasswordInput: UITextField
-    var BackToLoginButton: UIButton
-    var SignupButton: UIButton
+    var teamLabel: UILabel = UILabel()
+    var usernameTextInput: UITextField = UITextField()
+    var emailInput: UITextField = UITextField()
+    var passwordInput: UITextField = UITextField()
+    var repeatPasswordInput: UITextField = UITextField()
+    var BackToLoginButton: UIButton = UIButton()
+    var SignupButton: UIButton = UIButton()
 
-
-    required init?(coder aDecoder: NSCoder) {
-        self.teamLabel = UILabel()
-        self.usernameTextInput = UITextField()
-        self.passwordInput = UITextField()
-        self.repeatPasswordInput = UITextField()
-        self.BackToLoginButton = UIButton()
-        self.SignupButton = UIButton()
-        self.emailInput = UITextField()
-        super.init(coder: aDecoder)
-    }
+    var scrollView: UIScrollView = UIScrollView()
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         if UIDevice.current.orientation.isLandscape {
-            self.view.removeConstraints(view.constraints)
-            self.AddConstraintsLandscape()
+            self.clearConstraints()
+            self.AddConstraintsLandscape(view: scrollView)
         } else {
-            self.view.removeConstraints(view.constraints)
-            self.AddConstraintsPortrait()
+            self.clearConstraints()
+            self.AddConstraintsPortrait(view: scrollView)
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Create UI elements
-        createItems()
-        // Add constraints to elements
+        self.setupViews()
+
+    }
+
+    func setupViews() {
+
+        //Add and setup scroll view
+        self.view.addSubview(self.scrollView)
+        self.scrollView.translatesAutoresizingMaskIntoConstraints = false;
+
+        //Constrain scroll view
+        self.scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true;
+        self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20).isActive = true;
+        self.scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true;
+        self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true;
+
+        self.createItems(view: scrollView)
+
+
+        //Область прокрутки(до какой ширины и высоты прокручиваться. По умолчанию прокрутки нет и все помещается на экран
+        self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height)
         if UIDevice.current.orientation.isLandscape {
-            self.view.removeConstraints(view.constraints)
-            self.AddConstraintsLandscape()
+            self.clearConstraints()
+            self.AddConstraintsLandscape(view: scrollView)
         } else {
-            self.view.removeConstraints(view.constraints)
-            self.AddConstraintsPortrait()
+            self.clearConstraints()
+            self.AddConstraintsPortrait(view: scrollView)
         }
     }
 
-    private func createItems() {
+    // Отчистка зависимостей между элементами на scrollView (для перестройке при повороте)
+    func clearConstraints() {
+        self.scrollView.removeConstraints(self.scrollView.constraints)
+    }
+
+    private func createItems(view: UIView) {
         // Create items
         self.teamLabel = {
             let label = UILabel()
@@ -86,37 +99,43 @@ class SignupVC: UIViewController {
         self.SignupButton = CreateDefaultButton(text: "SignUp")
         SignupButton.addTarget(self, action: #selector(GoToManView), for: .allTouchEvents)
         view.addSubview(SignupButton)
-
     }
 
-    func AddConstraintsPortrait() {
+    func AddConstraintsPortrait(view: UIView) {
         let margin: CGFloat = 30
-        self.view.addConstraints([
-            NSLayoutConstraint(item: teamLabel, attribute: .top, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: margin),
+        view.addConstraints([
             NSLayoutConstraint(item: teamLabel, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
         ])
+
+        //Добавляем зависимость для верхнего элемента чтобы он был привязан к верхушке scrollView и прокурчивался, а не зависал на верху
+        self.teamLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+
         var previous: Any? = teamLabel
         for elem in [self.usernameTextInput, self.emailInput, self.passwordInput,
                      self.repeatPasswordInput, self.SignupButton, self.BackToLoginButton] {
-            self.view.addConstraints([
+            view.addConstraints([
                 NSLayoutConstraint(item: elem, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1, constant: margin),
                 NSLayoutConstraint(item: elem, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
                 NSLayoutConstraint(item: elem, attribute: .top, relatedBy: .equal, toItem: previous, attribute: .bottom, multiplier: 1, constant: margin),
             ])
             previous = elem
         }
+
     }
 
-    func AddConstraintsLandscape() {
+    func AddConstraintsLandscape(view: UIView) {
         let margin: CGFloat = 30
-        self.view.addConstraints([
-            NSLayoutConstraint(item: teamLabel, attribute: .top, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: margin),
+        view.addConstraints([
             NSLayoutConstraint(item: teamLabel, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
         ])
+
+        //Добавляем зависимость для верхнего элемента чтобы он был привязан к верхушке scrollView и прокурчивался, а не зависал на верху
+        self.teamLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+
         var previous: Any? = teamLabel
         for elem in [self.usernameTextInput, self.emailInput, self.passwordInput,
                      self.repeatPasswordInput] {
-            self.view.addConstraints([
+            view.addConstraints([
                 NSLayoutConstraint(item: elem, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1, constant: margin),
                 NSLayoutConstraint(item: elem, attribute: .right, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
                 NSLayoutConstraint(item: elem, attribute: .top, relatedBy: .equal, toItem: previous, attribute: .bottom, multiplier: 1, constant: margin),
@@ -125,8 +144,8 @@ class SignupVC: UIViewController {
         }
         previous = teamLabel
         for elem in [self.SignupButton, self.BackToLoginButton] {
-            self.view.addConstraints([
-                NSLayoutConstraint(item: elem, attribute: .left, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
+            view.addConstraints([
+                NSLayoutConstraint(item: elem, attribute: .left, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: margin),
                 NSLayoutConstraint(item: elem, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1, constant: margin),
                 NSLayoutConstraint(item: elem, attribute: .top, relatedBy: .equal, toItem: previous, attribute: .bottom, multiplier: 1, constant: margin),
             ])
@@ -152,6 +171,45 @@ class SignupVC: UIViewController {
         if segue.identifier == "SignUpSegue" {
             // if we need pass data
         }
+    }
+
+
+
+
+    // Изменяем область прокрутки при появлении клавиатуры чтобы не закрывало элементы!
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerNotifications()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unregisterNotifications()
+
+    }
+
+    //Регистрирует обработчик события появление клавиатуры
+    private func registerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    //Убираем обработчик чтобы не работало в других вьюшках
+    private func unregisterNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc func keyboardWillShow(notification: NSNotification) {
+        guard let keyboardFrame = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        let kb_height = view.convert(keyboardFrame.cgRectValue, from: nil).size.height
+        self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height + kb_height)
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        self.scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height)
     }
 
 }

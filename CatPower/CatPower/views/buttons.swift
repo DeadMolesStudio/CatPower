@@ -12,5 +12,8 @@ func CreateDefaultButton(text: String) -> UIButton {
     let button = UIButton(type: .system)
     button.setTitle(text, for: .normal)
     button.translatesAutoresizingMaskIntoConstraints = false
+    // для дебага
+    button.layer.borderWidth = 3
+    button.layer.borderColor = UIColor.blue.cgColor
     return button
 }
