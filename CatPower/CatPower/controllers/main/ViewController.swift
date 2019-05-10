@@ -18,14 +18,17 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     var incomeData = [CategoryStr]()
     var costsData = [CategoryStr]()
+
+    var user: User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.incomeData = incomeDefaultCategories
         self.costsData = costsDefaultCategories
-        
         setupNavBarItems()
         setBalanceInfo()
+        // для дебага, кажыдй раз после логина удаляем ключ чтобы проверить авторизацию при новом запуске
+        UserDefaults.standard.removeObject(forKey: TOKEN_KEY)
     }
     
     private func setupNavBarItems() {
