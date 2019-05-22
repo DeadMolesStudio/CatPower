@@ -16,15 +16,15 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     @IBOutlet weak var costsValue: UILabel!
     @IBOutlet weak var balanceValue: UILabel!
     
-    var incomeData = [CategoryStr]()
-    var costsData = [CategoryStr]()
+    var incomeData = [Category]()
+    var costsData = [Category]()
 
     var user: User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.incomeData = incomeDefaultCategories
-        self.costsData = costsDefaultCategories
+        self.incomeData = MoneyService.GetService().incomes
+        self.costsData = MoneyService.GetService().costs
         setupNavBarItems()
         setBalanceInfo()
         // для дебага, кажыдй раз после логина удаляем ключ чтобы проверить авторизацию при новом запуске
@@ -57,9 +57,9 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 2;
+            return MoneyService.GetService().incomes.count;
         default:
-            return 7;
+            return MoneyService.GetService().costs.count;
         }
         
     }
@@ -71,11 +71,11 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             let isIndexValid = incomeData.indices.contains(indexPath.item)
             if isIndexValid {
                 let dataItem = incomeData[indexPath.item]
-                let model = Category()
-                model.name = dataItem.name
-                model.isIncome = dataItem.isIncome
-                model.picture = dataItem.picture
-                model.value = dataItem.value
+                let model = Category(fromCategory: dataItem)
+//                model.name = dataItem.name
+//                model.isIncome = dataItem.isIncome
+//                model.picture = dataItem.picture
+//                model.value = dataItem.value
                 
                 cell.fillCell(with: model)
                 cell.tag = indexPath.item
@@ -86,11 +86,11 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             let isIndexValid = costsData.indices.contains(indexPath.item)
             if isIndexValid {
                 let dataItem = costsData[indexPath.item]
-                let model = Category()
-                model.name = dataItem.name
-                model.isIncome = dataItem.isIncome
-                model.picture = dataItem.picture
-                model.value = dataItem.value
+                let model = Category(fromCategory: dataItem)
+//                model.name = dataItem.name
+//                model.isIncome = dataItem.isIncome
+//                model.picture = dataItem.picture
+//                model.value = dataItem.value
                 
                 cell.fillCell(with: model)
                 cell.tag = indexPath.item

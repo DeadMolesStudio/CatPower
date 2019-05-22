@@ -17,6 +17,28 @@ class Category {
     var strValue: String {
         return String(value) + String(" ₽")
     }
+
+    init(){
+        self.name = ""
+        self.value = 0
+        self.isIncome = false
+        self.picture = "cat_ghost.png"
+    }
+
+    init(fromCategoryStr: CategoryStr) {
+        self.name = fromCategoryStr.name
+        self.isIncome = fromCategoryStr.isIncome
+        self.value = fromCategoryStr.value
+        self.picture = fromCategoryStr.picture
+    }
+
+    init (fromCategory other: Category) {
+        self.name = other.name
+        self.value = other.value
+        self.picture = other.picture
+        self.isIncome = other.isIncome
+    }
+
 }
 
 struct CategoryStr {

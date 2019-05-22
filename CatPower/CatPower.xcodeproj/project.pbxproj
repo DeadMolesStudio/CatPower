@@ -14,7 +14,9 @@
 		4DBAF5DF226F2A0D00C1BA36 /* picture in Resources */ = {isa = PBXBuildFile; fileRef = 4DBAF5DE226F2A0D00C1BA36 /* picture */; };
 		BC5DF13D220DEF7CE5D3BF13 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFE9ECBA089F8C1F30B85 /* CategoryModel.swift */; };
 		BC5DF1E76592CD0CDBF2A8F1 /* textFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF22966F9B044C1A0390E /* textFields.swift */; };
+		BC5DF42F7DEA20999A7253AA /* money-service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF322A99ED5CA6DB213EF /* money-service.swift */; };
 		BC5DF5FFE63841EA181FFD03 /* MoneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF8790DACBE9FC2F177D8 /* MoneyView.swift */; };
+		BC5DF633A74DC9616A60C68F /* history.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF301FCFBD0217DE0347F /* history.swift */; };
 		BC5DF6B919A125BABE2F683E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFDF0A0A2B1694AFAE498 /* ViewController.swift */; };
 		BC5DF7212A02B8AD60B33EC3 /* auth-service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF1BF71CE57DCEE2E6545 /* auth-service.swift */; };
 		BC5DFBF6BAA9CCB59127B8CA /* DefaultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFCD9B9AF0D221767772E /* DefaultData.swift */; };
@@ -34,6 +36,8 @@
 		4DBAF5DE226F2A0D00C1BA36 /* picture */ = {isa = PBXFileReference; lastKnownFileType = folder; path = picture; sourceTree = "<group>"; };
 		BC5DF1BF71CE57DCEE2E6545 /* auth-service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "auth-service.swift"; sourceTree = "<group>"; };
 		BC5DF22966F9B044C1A0390E /* textFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = textFields.swift; sourceTree = "<group>"; };
+		BC5DF301FCFBD0217DE0347F /* history.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = history.swift; sourceTree = "<group>"; };
+		BC5DF322A99ED5CA6DB213EF /* money-service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "money-service.swift"; sourceTree = "<group>"; };
 		BC5DF8790DACBE9FC2F177D8 /* MoneyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyView.swift; sourceTree = "<group>"; };
 		BC5DFC7E343A3955B23E79AB /* buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = buttons.swift; sourceTree = "<group>"; };
 		BC5DFCD9B9AF0D221767772E /* DefaultData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultData.swift; sourceTree = "<group>"; };
@@ -92,6 +96,8 @@
 			isa = PBXGroup;
 			children = (
 				BC5DF1BF71CE57DCEE2E6545 /* auth-service.swift */,
+				BC5DF322A99ED5CA6DB213EF /* money-service.swift */,
+				BC5DF301FCFBD0217DE0347F /* history.swift */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -241,6 +247,8 @@
 				BC5DFBF6BAA9CCB59127B8CA /* DefaultData.swift in Sources */,
 				BC5DF6B919A125BABE2F683E /* ViewController.swift in Sources */,
 				BC5DF5FFE63841EA181FFD03 /* MoneyView.swift in Sources */,
+				BC5DF42F7DEA20999A7253AA /* money-service.swift in Sources */,
+				BC5DF633A74DC9616A60C68F /* history.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
