@@ -6,6 +6,8 @@
 import Foundation
 
 let MONEY_SERVICE_KEY = "MONEY_SERVICE_KEY"
+let MONEY_SERVICE_INCOMES_KEY = MONEY_SERVICE_KEY + "_INCOMES"
+let MONEY_SERVICE_COSTS_KEY = MONEY_SERVICE_KEY + "_COSTS"
 
 fileprivate func ConvertArrays(from strs: [CategoryStr]) -> [Category] {
     var result = [Category]()
@@ -35,18 +37,36 @@ class MoneyService {
 
     private init() {
         let defaults = UserDefaults.standard
-        if let ms = defaults.object(forKey: MONEY_SERVICE_KEY) as? MoneyService {
-            self.incomes = ms.incomes
-            self.costs = ms.costs
+        if let ms = defaults.data(forKey: MONEY_SERVICE_INCOMES_KEY) {
+            self.incomes = NSKeyedUnarchiver.unarchiveObject(with: ms) as! [Category]
         } else {
-            self.costs = ConvertArrays(from: costsDefaultCategories)
             self.incomes = ConvertArrays(from: incomeDefaultCategories)
         }
+        if let ms = defaults.data(forKey: MONEY_SERVICE_COSTS_KEY) {
+            self.costs = NSKeyedUnarchiver.unarchiveObject(with: ms) as! [Category]
+        } else {
+            self.costs = ConvertArrays(from: costsDefaultCategories)
+        }
+//        if let ms = defaults.object(forKey: MONEY_SERVICE_KEY) as? MoneyService {
+//            self.incomes = ms.incomes
+//            self.costs = ms.costs
+//        } else {
+//            self.costs = ConvertArrays(from: costsDefaultCategories)
+//            self.incomes = ConvertArrays(from: incomeDefaultCategories)
+//        }
     }
+
+//    func encode(with aCoder: NSCoder) {
+//        aCoder.encode(<#T##data: Data##Foundation.Data#>)
+//    }
 
     func save() {
         let defaults = UserDefaults.standard
-        defaults.set(self, forKey: MONEY_SERVICE_KEY)
+        let encodeDataCosts: Data = NSKeyedArchiver.archivedData(withRootObject: self.costs)
+        let encodeDataIncomes: Data = NSKeyedArchiver.archivedData(withRootObject: self.incomes)
+        defaults.set(encodeDataIncomes, forKey: MONEY_SERVICE_INCOMES_KEY)
+        defaults.set(encodeDataCosts, forKey: MONEY_SERVICE_COSTS_KEY)
+//        defaults.set(self, forKey: MONEY_SERVICE_KEY)
 
         // TODO: make request to API to save
 
@@ -123,6 +143,11 @@ class MoneyService {
         let to = Category()
         from.name = toString
         try self.transfer(from: from, to: to, value: value)
+    }
+
+    func addMoney(to category: Category, amount money: Int) {
+        category.value += money
+        self.save()
     }
 }
 
