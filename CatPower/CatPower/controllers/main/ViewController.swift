@@ -20,13 +20,15 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     var costsData = [Category]()
 
     var user: User!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.incomeData = MoneyService.GetService().incomes
         self.costsData = MoneyService.GetService().costs
         setupNavBarItems()
         setBalanceInfo()
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
         // для дебага, кажыдй раз после логина удаляем ключ чтобы проверить авторизацию при новом запуске
         UserDefaults.standard.removeObject(forKey: TOKEN_KEY)
     }
@@ -57,9 +59,9 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return MoneyService.GetService().incomes.count;
+            return MoneyService.GetService().incomes.count + 1;
         default:
-            return MoneyService.GetService().costs.count;
+            return MoneyService.GetService().costs.count + 1;
         }
         
     }
@@ -72,41 +74,56 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             if isIndexValid {
                 let dataItem = incomeData[indexPath.item]
                 let model = Category(fromCategory: dataItem)
-//                model.name = dataItem.name
-//                model.isIncome = dataItem.isIncome
-//                model.picture = dataItem.picture
-//                model.value = dataItem.value
-                
                 cell.fillCell(with: model)
                 cell.tag = indexPath.item
+            } else {
+                let dataItem = Category()
+                dataItem.name = "Add Category"
+                dataItem.isIncome = true
+                dataItem.value = 0
+                dataItem.picture = "shadow_fly.png"
+                cell.fillCell(with: dataItem)
+                cell.value.text = ""
+                cell.tag = indexPath.item
+                cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
             }
         }
-        
+
         if indexPath.section == 1 {
             let isIndexValid = costsData.indices.contains(indexPath.item)
             if isIndexValid {
                 let dataItem = costsData[indexPath.item]
                 let model = Category(fromCategory: dataItem)
-//                model.name = dataItem.name
-//                model.isIncome = dataItem.isIncome
-//                model.picture = dataItem.picture
-//                model.value = dataItem.value
-                
                 cell.fillCell(with: model)
                 cell.tag = indexPath.item
+            } else {
+                let dataItem = Category()
+                dataItem.name = "Add Category"
+                dataItem.isIncome = false
+                dataItem.value = 0
+                dataItem.picture = "shadow_fly.png"
+                cell.fillCell(with: dataItem)
+                cell.value.text = ""
+                cell.tag = indexPath.item
+                cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
             }
         }
-        
-//        cell.value.text = String("100 ₽")
-//        cell.categoryName.text = String("Кошелек")
-//        cell.categoryPicture.image = UIImage(named: "cat_acrobat.png")
-        
-        
-        
+
         return cell;
         
     }
-    
+
+    @objc func tap(_ sender: UITapGestureRecognizer) {
+
+        let location = sender.location(in: self.collectionView)
+        let indexPath = self.collectionView.indexPathForItem(at: location)
+
+        if let index = indexPath {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: index) as! MoneyView
+            print("Got clicked on index: \(index)!")
+        }
+    }
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         //чтобы всегда было по 4 ячейки в ряду

@@ -41,7 +41,7 @@ class MoneyView: UICollectionViewCell {
             costsColor()
         }
     }
-    
+
 }
     
 
