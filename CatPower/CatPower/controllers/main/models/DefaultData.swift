@@ -68,3 +68,14 @@ let costsDefaultCategories = [
     ),
 
 ]
+
+let available_images: [String] = {
+    var result = [String]()
+    for item in costsDefaultCategories {
+        result.append(item.picture)
+    }
+    for item in incomeDefaultCategories {
+        result.append(item.picture)
+    }
+    return result
+}()

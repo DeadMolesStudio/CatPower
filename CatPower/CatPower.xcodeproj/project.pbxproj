@@ -14,9 +14,12 @@
 		4DBAF5DF226F2A0D00C1BA36 /* picture in Resources */ = {isa = PBXBuildFile; fileRef = 4DBAF5DE226F2A0D00C1BA36 /* picture */; };
 		BC5DF13D220DEF7CE5D3BF13 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFE9ECBA089F8C1F30B85 /* CategoryModel.swift */; };
 		BC5DF1E76592CD0CDBF2A8F1 /* textFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF22966F9B044C1A0390E /* textFields.swift */; };
+		BC5DF42F7DEA20999A7253AA /* money-service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF322A99ED5CA6DB213EF /* money-service.swift */; };
 		BC5DF5FFE63841EA181FFD03 /* MoneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF8790DACBE9FC2F177D8 /* MoneyView.swift */; };
+		BC5DF633A74DC9616A60C68F /* history.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF301FCFBD0217DE0347F /* history.swift */; };
 		BC5DF6B919A125BABE2F683E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFDF0A0A2B1694AFAE498 /* ViewController.swift */; };
 		BC5DF7212A02B8AD60B33EC3 /* auth-service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF1BF71CE57DCEE2E6545 /* auth-service.swift */; };
+		BC5DF7BCED2D51FB80E80010 /* addCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF68A979C51A3D8A74E50 /* addCategoryVC.swift */; };
 		BC5DFBF6BAA9CCB59127B8CA /* DefaultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFCD9B9AF0D221767772E /* DefaultData.swift */; };
 		BC5DFC1249A2AC4D11390BF1 /* user.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFFE8B656436EFD9D7BA2 /* user.swift */; };
 		BC5DFE2BDC22CD4D21DE52E8 /* buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFC7E343A3955B23E79AB /* buttons.swift */; };
@@ -34,6 +37,9 @@
 		4DBAF5DE226F2A0D00C1BA36 /* picture */ = {isa = PBXFileReference; lastKnownFileType = folder; path = picture; sourceTree = "<group>"; };
 		BC5DF1BF71CE57DCEE2E6545 /* auth-service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "auth-service.swift"; sourceTree = "<group>"; };
 		BC5DF22966F9B044C1A0390E /* textFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = textFields.swift; sourceTree = "<group>"; };
+		BC5DF301FCFBD0217DE0347F /* history.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = history.swift; sourceTree = "<group>"; };
+		BC5DF322A99ED5CA6DB213EF /* money-service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "money-service.swift"; sourceTree = "<group>"; };
+		BC5DF68A979C51A3D8A74E50 /* addCategoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addCategoryVC.swift; sourceTree = "<group>"; };
 		BC5DF8790DACBE9FC2F177D8 /* MoneyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyView.swift; sourceTree = "<group>"; };
 		BC5DFC7E343A3955B23E79AB /* buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = buttons.swift; sourceTree = "<group>"; };
 		BC5DFCD9B9AF0D221767772E /* DefaultData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultData.swift; sourceTree = "<group>"; };
@@ -92,8 +98,18 @@
 			isa = PBXGroup;
 			children = (
 				BC5DF1BF71CE57DCEE2E6545 /* auth-service.swift */,
+				BC5DF322A99ED5CA6DB213EF /* money-service.swift */,
+				BC5DF301FCFBD0217DE0347F /* history.swift */,
 			);
 			path = services;
+			sourceTree = "<group>";
+		};
+		BC5DF950E815297F792C5CD1 /* addCategory */ = {
+			isa = PBXGroup;
+			children = (
+				BC5DF68A979C51A3D8A74E50 /* addCategoryVC.swift */,
+			);
+			path = addCategory;
 			sourceTree = "<group>";
 		};
 		BC5DFB5D2D38B2B6F7A89F18 /* models */ = {
@@ -121,6 +137,7 @@
 				E22F8C8A227D27E100036A55 /* signup */,
 				E22F8C84227D26A400036A55 /* login */,
 				BC5DFC1DD3CD644278EB6FC5 /* main */,
+				BC5DF950E815297F792C5CD1 /* addCategory */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -241,6 +258,9 @@
 				BC5DFBF6BAA9CCB59127B8CA /* DefaultData.swift in Sources */,
 				BC5DF6B919A125BABE2F683E /* ViewController.swift in Sources */,
 				BC5DF5FFE63841EA181FFD03 /* MoneyView.swift in Sources */,
+				BC5DF42F7DEA20999A7253AA /* money-service.swift in Sources */,
+				BC5DF633A74DC9616A60C68F /* history.swift in Sources */,
+				BC5DF7BCED2D51FB80E80010 /* addCategoryVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
