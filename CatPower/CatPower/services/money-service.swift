@@ -114,24 +114,26 @@ class MoneyService {
     }
 
     func transfer(from: Category, to: Category, value: Int) throws {
-        var from_category: Category
-        if let cat = self.getCategory(by: from, from: self.incomes) {
-            from_category = cat
-        } else if let cat = self.getCategory(by: from, from: self.costs) {
-            from_category = cat
+        let from_category_index: Int? = self.incomes.firstIndex {$0.name == from.name}
+        let from_item:Category
+        if let fci = from_category_index {
+            from_item = self.incomes[fci]
+        } else if let fci = self.costs.firstIndex(where: {$0.name == from.name}) {
+            from_item = self.costs[fci]
         } else {
             throw MoneyServiceError.CategoryNotExists
         }
-        var to_category: Category
-        if let cat = self.getCategory(by: to, from: self.incomes) {
-            to_category = cat
-        } else if let cat = self.getCategory(by: to, from: self.costs) {
-            to_category = cat
+        let to_category_index: Int? = self.incomes.firstIndex {$0.name == to.name}
+        let to_item:Category
+        if let fci = to_category_index {
+            to_item = self.incomes[fci]
+        } else if let fci = self.costs.firstIndex(where: {$0.name == to.name}) {
+            to_item = self.costs[fci]
         } else {
             throw MoneyServiceError.CategoryNotExists
         }
-        from.value -= value
-        to.value += value
+        from_item.value -= value
+        to_item.value += value
         self.save()
         let op = Operation(from: from, to: to, value: value, comment: nil)
         History.GetHistory().addOperation(operation: op)
@@ -141,7 +143,7 @@ class MoneyService {
         let from = Category()
         from.name = fromString
         let to = Category()
-        from.name = toString
+        to.name = toString
         try self.transfer(from: from, to: to, value: value)
     }
 

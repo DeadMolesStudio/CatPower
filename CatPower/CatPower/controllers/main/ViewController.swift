@@ -9,13 +9,13 @@
 import UIKit
 
 class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIPickerViewDelegate, UIPickerViewDataSource {
-    
+
     @IBOutlet weak var sidebarButton: UIButton!
     @IBOutlet weak var addMoneyButton: UIButton!
-    
+
     @IBOutlet weak var costsValue: UILabel!
     @IBOutlet weak var balanceValue: UILabel!
-    
+
     var incomeData = [Category]()
     var costsData = [Category]()
 
@@ -31,21 +31,24 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         self.collectionView.dataSource = self
         // для дебага, кажыдй раз после логина удаляем ключ чтобы проверить авторизацию при новом запуске
         UserDefaults.standard.removeObject(forKey: TOKEN_KEY)
+        self.collectionView.dragDelegate = self
+        self.collectionView.dropDelegate = self
+        self.collectionView.dragInteractionEnabled = true
     }
-    
+
     private func setupNavBarItems() {
-        
+
         let sideBarPicture = UIImage(named: "bars.png")
         sidebarButton.tintColor = UIColor.gray
         sidebarButton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
         sidebarButton.setBackgroundImage(sideBarPicture, for: .normal)
-        
+
         let addMoneyPicture = UIImage(named: "money.png")
         addMoneyButton.tintColor = UIColor.gray
         addMoneyButton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
         addMoneyButton.setBackgroundImage(addMoneyPicture, for: .normal)
         addMoneyButton.addTarget(self, action: #selector(addMoney), for: .allTouchEvents)
-        
+
     }
 
     @objc func addMoney(sender: UIButton) {
@@ -60,6 +63,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         alert.view.addSubview(pickerView)
         alert.addTextField { (textField) in
             textField.placeholder = "amount"
+            textField.keyboardType = .decimalPad
         }
         alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
@@ -69,8 +73,6 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 if let money = Int(text.text!) {
                     MoneyService.GetService().addMoney(to: category, amount: money)
                     self.collectionView.reloadData()
-                    print("amount = \(Int(text.text!)!)")
-                    print("category \(category.name)")
                 } else {
                     return
                 }
@@ -81,11 +83,10 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             let money = Int(textField!.text!)!
             MoneyService.GetService().addMoney(to: category, amount: money)
             self.collectionView.reloadData()
-            print("amount = \(Int(textField!.text!)!)")
-            print("category \(category.name)")
         }))
         self.present(alert, animated: true)
     }
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -98,15 +99,15 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return MoneyService.GetService().incomes[row].name as String
     }
 
-    private func setBalanceInfo(newCosts : Int = 0, newBalance : Int = 0) {
+    private func setBalanceInfo(newCosts: Int = 0, newBalance: Int = 0) {
         costsValue.text = String(newCosts) + String(" ₽")
         balanceValue.text = String(newBalance) + String(" ₽")
     }
-    
+
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2;
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -114,9 +115,9 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         default:
             return MoneyService.GetService().costs.count + 1;
         }
-        
+
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MoneyView
         self.incomeData = MoneyService.GetService().incomes
@@ -162,7 +163,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
 
         return cell;
-        
+
     }
 
     @objc func tapAddCategory(_ sender: UITapGestureRecognizer) {
@@ -225,20 +226,18 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 default:
                     category.isIncome = false
                 }
-                print("reloading views")
                 self.collectionView.reloadData()
             }))
             self.present(alert, animated: true, completion: nil)
 
-            print("Got clicked on index: \(index)!")
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
+
         //чтобы всегда было по 4 ячейки в ряду
-        let cellWidth = (self.view.frame.size.width - 45 - 40)/4;
-        
+        let cellWidth = (self.view.frame.size.width - 45 - 40) / 4;
+
         let size = CGSize(width: cellWidth, height: cellWidth * 1.3)
         return size
     }
@@ -246,3 +245,100 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
 }
 
+extension ViewController: UICollectionViewDragDelegate {
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let item: Category
+        if indexPath.section == 0 {
+            item = self.incomeData[indexPath.row]
+        } else {
+            item = self.costsData[indexPath.row]
+        }
+        let itemProvider = NSItemProvider(object: item.name as NSString)
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        dragItem.localObject = item
+        return [dragItem]
+    }
+}
+
+extension ViewController: UICollectionViewDropDelegate {
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        if self.collectionView.hasActiveDrag {
+            return UICollectionViewDropProposal(operation: .move, intent: .unspecified)
+        } else {
+            return UICollectionViewDropProposal(operation: .move)
+        }
+
+    }
+
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        let destinationIndexPath: IndexPath
+        if let indexPath = coordinator.destinationIndexPath {
+            destinationIndexPath = indexPath
+        } else {
+            // Get last index path of table view.
+            let section = collectionView.numberOfSections - 1
+            let row = collectionView.numberOfItems(inSection: section)
+            destinationIndexPath = IndexPath(row: row, section: section)
+        }
+        let cell = collectionView.cellForItem(at: destinationIndexPath) as! MoneyView
+        let ms = MoneyService.GetService()
+        let source_cell: MoneyView
+        if coordinator.items.count == 1, let item = coordinator.items.first, let sourceIndexPath = item.sourceIndexPath {
+            source_cell = collectionView.cellForItem(at: sourceIndexPath) as! MoneyView
+        } else {
+            source_cell = collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as! MoneyView
+        }
+//        do {
+//            try ms.transfer(fromString: source_cell.categoryName!.text!, toString: cell.categoryName!.text!, value: 1)
+//        } catch MoneyServiceError.CategoryNotExists {
+//            print("error: CategoryExists")
+//        } catch {
+//            print("unhandled error 1")
+//            return
+//        }
+        switch coordinator.proposal.operation {
+        case .move:
+            let alert = UIAlertController(title: "Amount", message: "Enter amount", preferredStyle: .alert)
+            alert.addTextField { (textField) in
+                textField.placeholder = "amount"
+                textField.keyboardType = .decimalPad
+            }
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { [weak alert] (_) in
+                var money: Int?
+                let textField = alert?.textFields![0]
+                if let text = textField {
+                    if let m = Int(text.text!) {
+                        money = m
+                    } else {
+                        return
+                    }
+                } else {
+                    return
+                }
+                if let value = money {
+                    do {
+                        try ms.transfer(fromString: source_cell.categoryName.text!, toString: cell.categoryName.text!, value: value)
+                        self.collectionView.reloadData()
+                    } catch MoneyServiceError.CategoryNotExists {
+                        print("error: CategoryExists")
+                    } catch {
+                        print("unhandled error 1")
+                        return
+                    }
+                } else {
+                    let alert2 = UIAlertController(title: "error", message: "Bad value! Integers only", preferredStyle: .alert)
+                    alert2.addAction(UIAlertAction(title: "ok", style: .default))
+                    self.present(alert2, animated: true)
+                    return
+                }
+
+            }))
+            alert.addAction(UIAlertAction(title: "cancel", style: .default))
+            present(alert, animated: true)
+
+            break
+        default:
+            return
+        }
+    }
+}

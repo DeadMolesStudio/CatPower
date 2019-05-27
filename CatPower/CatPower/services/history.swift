@@ -52,7 +52,7 @@ class History {
 
     func addOperation(operation: Operation) {
         self.Operations.append(operation)
-        self.save()
+//        self.save()
     }
 
     func removeOperation(operation: Operation) -> Bool {
