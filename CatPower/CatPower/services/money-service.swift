@@ -135,7 +135,7 @@ class MoneyService {
         from_item.value -= value
         to_item.value += value
         self.save()
-        let op = Operation(from: from, to: to, value: value, comment: nil)
+        let op = Operation(from: from_item, to: to_item, value: value)
         History.GetHistory().addOperation(operation: op)
     }
 

@@ -19,9 +19,12 @@
 		BC5DF633A74DC9616A60C68F /* history.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF301FCFBD0217DE0347F /* history.swift */; };
 		BC5DF6B919A125BABE2F683E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFDF0A0A2B1694AFAE498 /* ViewController.swift */; };
 		BC5DF7212A02B8AD60B33EC3 /* auth-service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF1BF71CE57DCEE2E6545 /* auth-service.swift */; };
+		BC5DF73A17F931D689A322BF /* historyCell-settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFF894B3D9044BD8065FF /* historyCell-settings.swift */; };
 		BC5DF7BCED2D51FB80E80010 /* addCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF68A979C51A3D8A74E50 /* addCategoryVC.swift */; };
+		BC5DF8A91F7F5159C8F05565 /* historyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF447888CD3B0B993742A /* historyCell.swift */; };
 		BC5DFBF6BAA9CCB59127B8CA /* DefaultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFCD9B9AF0D221767772E /* DefaultData.swift */; };
 		BC5DFC1249A2AC4D11390BF1 /* user.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFFE8B656436EFD9D7BA2 /* user.swift */; };
+		BC5DFC5A68A0F252BA2D1738 /* historyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF6BA221242C738626A34 /* historyVC.swift */; };
 		BC5DFE2BDC22CD4D21DE52E8 /* buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFC7E343A3955B23E79AB /* buttons.swift */; };
 		E22F8C89227D277300036A55 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F8C88227D277300036A55 /* LoginVC.swift */; };
 		E22F8C8C227D281200036A55 /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F8C8B227D281200036A55 /* SignupVC.swift */; };
@@ -39,12 +42,15 @@
 		BC5DF22966F9B044C1A0390E /* textFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = textFields.swift; sourceTree = "<group>"; };
 		BC5DF301FCFBD0217DE0347F /* history.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = history.swift; sourceTree = "<group>"; };
 		BC5DF322A99ED5CA6DB213EF /* money-service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "money-service.swift"; sourceTree = "<group>"; };
+		BC5DF447888CD3B0B993742A /* historyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = historyCell.swift; sourceTree = "<group>"; };
 		BC5DF68A979C51A3D8A74E50 /* addCategoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addCategoryVC.swift; sourceTree = "<group>"; };
+		BC5DF6BA221242C738626A34 /* historyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = historyVC.swift; sourceTree = "<group>"; };
 		BC5DF8790DACBE9FC2F177D8 /* MoneyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyView.swift; sourceTree = "<group>"; };
 		BC5DFC7E343A3955B23E79AB /* buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = buttons.swift; sourceTree = "<group>"; };
 		BC5DFCD9B9AF0D221767772E /* DefaultData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultData.swift; sourceTree = "<group>"; };
 		BC5DFDF0A0A2B1694AFAE498 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BC5DFE9ECBA089F8C1F30B85 /* CategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
+		BC5DFF894B3D9044BD8065FF /* historyCell-settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "historyCell-settings.swift"; sourceTree = "<group>"; };
 		BC5DFFE8B656436EFD9D7BA2 /* user.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = user.swift; sourceTree = "<group>"; };
 		E22F8C88227D277300036A55 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		E22F8C8B227D281200036A55 /* SignupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
@@ -121,6 +127,15 @@
 			path = models;
 			sourceTree = "<group>";
 		};
+		BC5DFC1BA55DED91101AFB6B /* history */ = {
+			isa = PBXGroup;
+			children = (
+				BC5DF6BA221242C738626A34 /* historyVC.swift */,
+				BC5DF447888CD3B0B993742A /* historyCell.swift */,
+			);
+			path = history;
+			sourceTree = "<group>";
+		};
 		BC5DFC1DD3CD644278EB6FC5 /* main */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +153,7 @@
 				E22F8C84227D26A400036A55 /* login */,
 				BC5DFC1DD3CD644278EB6FC5 /* main */,
 				BC5DF950E815297F792C5CD1 /* addCategory */,
+				BC5DFC1BA55DED91101AFB6B /* history */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -155,6 +171,7 @@
 			children = (
 				BC5DFC7E343A3955B23E79AB /* buttons.swift */,
 				BC5DF22966F9B044C1A0390E /* textFields.swift */,
+				BC5DFF894B3D9044BD8065FF /* historyCell-settings.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -261,6 +278,9 @@
 				BC5DF42F7DEA20999A7253AA /* money-service.swift in Sources */,
 				BC5DF633A74DC9616A60C68F /* history.swift in Sources */,
 				BC5DF7BCED2D51FB80E80010 /* addCategoryVC.swift in Sources */,
+				BC5DFC5A68A0F252BA2D1738 /* historyVC.swift in Sources */,
+				BC5DF8A91F7F5159C8F05565 /* historyCell.swift in Sources */,
+				BC5DF73A17F931D689A322BF /* historyCell-settings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

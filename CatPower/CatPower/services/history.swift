@@ -21,8 +21,8 @@ class History {
 
     private init() {
         let defaults = UserDefaults.standard
-        if let h = defaults.object(forKey: HISTORY_SERVICE_KEY) as? History {
-            self.Operations = h.Operations
+        if let h = defaults.data(forKey: HISTORY_SERVICE_KEY) {
+            self.Operations = NSKeyedUnarchiver.unarchiveObject(with: h) as! [Operation]
         } else {
             self.Operations = [Operation]()
         }
@@ -35,7 +35,8 @@ class History {
 
     func save() {
         let defaults = UserDefaults.standard
-        defaults.set(self, forKey: HISTORY_SERVICE_KEY)
+        let data = NSKeyedArchiver.archivedData(withRootObject: self.Operations)
+        defaults.set(data, forKey: HISTORY_SERVICE_KEY)
 
         // TODO: make request to API to save
 
@@ -52,40 +53,75 @@ class History {
 
     func addOperation(operation: Operation) {
         self.Operations.append(operation)
-//        self.save()
+        self.save()
     }
 
     func removeOperation(operation: Operation) -> Bool {
-        if let (_, i) = self.findOperation(opertation: operation) {
+//        if let (_, i) = self.findOperation(opertation: operation) {
+//            self.Operations.remove(at: i)
+//        }
+//        return true
+        let index = self.Operations.firstIndex(where: {$0.id == operation.id})
+        if let i = index {
             self.Operations.remove(at: i)
+            self.save()
+        } else {
+            return false
         }
         return true
+
     }
 }
 
-class Operation {
+class Operation: NSObject, NSCoding {
     var id: UUID
     var From: Category
     var To: Category
     var Value: Int
-    var Comment: String?
+//    var Comment: String?
 
-    init() {
+    override init() {
         From = Category()
         To = Category()
         Value = 0
-        Comment = nil
+//        Comment = nil
         id = UUID()
     }
 
-    init(from: Category, to: Category, value: Int, comment: String?) {
+    init(from: Category, to: Category, value: Int) { //, comment: String?) {
         From = from
         To = to
-        if let c = comment {
-            Comment = c
-        }
+//        if let c = comment {
+//            Comment = c
+//        }
         Value = value
         id = UUID()
+    }
+
+    init(from: Category, to: Category, value: Int, id: UUID) {
+        From = from
+        To = to
+        Value = value
+        self.id = id
+    }
+
+    required convenience init(coder aDecoder: NSCoder) {
+        let from_category_data = aDecoder.decodeObject(forKey: "From") as! Data
+        let from = NSKeyedUnarchiver.unarchiveObject(with: from_category_data) as! Category
+        let to_category_data = aDecoder.decodeObject(forKey: "To") as! Data
+        let to = NSKeyedUnarchiver.unarchiveObject(with: to_category_data) as! Category
+        let id = aDecoder.decodeObject(forKey: "id") as! UUID
+        let value = aDecoder.decodeInteger(forKey: "Value")
+        self.init(from: from, to: to, value: value, id: id)
+    }
+
+    func encode(with aCoder: NSCoder) {
+        let from_category_data = NSKeyedArchiver.archivedData(withRootObject: self.From)
+        let to_category_data = NSKeyedArchiver.archivedData(withRootObject: self.To)
+        aCoder.encode(from_category_data, forKey: "From")
+        aCoder.encode(to_category_data, forKey: "To")
+        aCoder.encode(Value, forKey: "Value")
+        aCoder.encode(id, forKey: "id")
     }
 
     static func == (lhs: Operation, rhs: Operation) -> Bool {

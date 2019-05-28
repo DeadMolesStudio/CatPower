@@ -6,6 +6,7 @@
 //  Copyright © 2019 DeadMolesStudio. All rights reserved.
 //
 
+
 import UIKit
 
 class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -42,6 +43,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         sidebarButton.tintColor = UIColor.gray
         sidebarButton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
         sidebarButton.setBackgroundImage(sideBarPicture, for: .normal)
+        sidebarButton.addTarget(self, action: #selector(goToHistory), for: .allTouchEvents)
 
         let addMoneyPicture = UIImage(named: "money.png")
         addMoneyButton.tintColor = UIColor.gray
@@ -50,7 +52,21 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         addMoneyButton.addTarget(self, action: #selector(addMoney), for: .allTouchEvents)
 
     }
+    var isPushing = false
+    @objc func goToHistory(sender: UIButton) {
+        // isPushing и транзакции против двойного пуша одной и той же вьюшки
+        if !isPushing {
+            isPushing = true
+            CATransaction.begin()
+            CATransaction.setCompletionBlock {
+                self.isPushing = false
+            }
+            let vc = HistoryView.init(collectionViewLayout: GridLayout())
+            self.navigationController?.pushViewController(vc, animated: true)
+            CATransaction.commit()
+        }
 
+    }
     @objc func addMoney(sender: UIButton) {
 
         let alert = UIAlertController(title: "Select category", message: "\n\n\n\n\n\n\n\n\n", preferredStyle: .alert)
@@ -79,10 +95,10 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             } else {
                 return
             }
-            let category = MoneyService.GetService().incomes[pickerView.selectedRow(inComponent: 0)]
-            let money = Int(textField!.text!)!
-            MoneyService.GetService().addMoney(to: category, amount: money)
-            self.collectionView.reloadData()
+//            let category = MoneyService.GetService().incomes[pickerView.selectedRow(inComponent: 0)]
+//            let money = Int(textField!.text!)!
+//            MoneyService.GetService().addMoney(to: category, amount: money)
+//            self.collectionView.reloadData()
         }))
         self.present(alert, animated: true)
     }
@@ -161,6 +177,10 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAddCategory)))
             }
         }
+
+        let newBalance = MoneyService.GetService().incomes.map {$0.value}.reduce(0) {$0+$1}
+        let newCosts = MoneyService.GetService().costs.map {$0.value}.reduce(0) {$0+$1}
+        self.setBalanceInfo(newCosts: newCosts, newBalance: newBalance)
 
         return cell;
 

@@ -17,3 +17,12 @@ func CreateDefaultButton(text: String) -> UIButton {
     button.layer.borderColor = UIColor.blue.cgColor
     return button
 }
+
+func CreateRemoveButton(text: String) -> UIButton {
+    let button = UIButton(type: .system)
+    button.setTitle(text, for: .normal)
+    button.translatesAutoresizingMaskIntoConstraints = false
+    button.backgroundColor = .red
+    button.titleLabel?.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    return button
+}
