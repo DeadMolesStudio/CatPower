@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class SignupVC: UIViewController {
 
@@ -97,7 +98,7 @@ class SignupVC: UIViewController {
         view.addSubview(BackToLoginButton)
 
         self.SignupButton = CreateDefaultButton(text: "SignUp")
-        SignupButton.addTarget(self, action: #selector(GoToManView), for: .allTouchEvents)
+        SignupButton.addTarget(self, action: #selector(GoToMainView), for: .touchUpInside)
         view.addSubview(SignupButton)
     }
 
@@ -157,13 +158,64 @@ class SignupVC: UIViewController {
         dismiss(animated: true)
     }
 
-    @objc func GoToManView(sender: UIButton) {
+    @objc func GoToMainView(sender: UIButton) {
+        
+        let username = self.usernameTextInput.text!
+        let password = self.passwordInput.text!
+        
+        if (username.isEmpty ||
+            self.emailInput.text!.isEmpty ||
+            password.isEmpty) { return }
+        if (self.passwordInput.text! != self.repeatPasswordInput.text!) { return }
+        
+    
+        self.saveUserAndToken()
+        self.createDefaultCategoriesForUser()
+        
         // TODO: validation
         var ok = true
         if ok {
-            let vc = storyboard?.instantiateViewController(withIdentifier: "RootVC") as! UIViewController
+            let vc = storyboard!.instantiateViewController(withIdentifier: "MainVC") as! UIViewController
             let navVC = UINavigationController(rootViewController: vc)
+            
+            print("token before present mainVC: ", UserDefaults.standard.string(forKey: TOKEN_KEY) ?? "kek")
             present(navVC, animated: true, completion: nil)
+        }
+    }
+    
+    private func createDefaultCategoriesForUser() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let allCategories = incomeDefaultCategories + costsDefaultCategories
+        let costs = ConvertArraysToEntities(from: allCategories, managedContext: managedContext)
+
+        do {
+            try managedContext.save()
+        } catch {
+            print("Failed save in SinupVC")
+        }
+    }
+    
+    private func saveUserAndToken() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let userEntity = NSEntityDescription.entity(forEntityName: "UserModel", in: managedContext)!
+        
+        let token = UUID().uuidString
+        
+        let user = NSManagedObject(entity: userEntity, insertInto: managedContext)
+        user.setValue(self.emailInput.text!, forKey: "email")
+        user.setValue(self.usernameTextInput.text!, forKey: "username")
+        user.setValue(self.passwordInput.text!, forKey: "password")
+        user.setValue(token, forKey: "token")
+
+        Auth.setToken(token: token)
+        
+        do {
+            try managedContext.save()
+        } catch {
+            print("Failed save in SinupVC")
         }
     }
 

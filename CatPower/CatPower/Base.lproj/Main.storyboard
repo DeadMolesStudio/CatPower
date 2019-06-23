@@ -142,7 +142,22 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MMy-Yi-QSF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="908" y="-92.203898050974516"/>
+            <point key="canvasLocation" x="746" y="-92"/>
+        </scene>
+        <!--History View-->
+        <scene sceneID="bbT-hH-FJw">
+            <objects>
+                <viewController storyboardIdentifier="HistoryVC" id="Qyp-ZZ-6hs" customClass="HistoryView" customModule="CatPower" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CXJ-RN-4rx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Kwd-MQ-wlj"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sPj-DO-5pK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="749" y="617"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IKP-qS-QxT">
@@ -199,6 +214,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1an-0d-7l3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-893" y="683"/>
+        </scene>
+        <!--SpendingVC-->
+        <scene sceneID="RUG-8u-p8X">
+            <objects>
+                <viewController storyboardIdentifier="SpendingVC" id="qP8-CB-Ji6" customClass="SpendingVC" customModule="CatPower" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hba-iW-0uM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="kLF-IF-FG1"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uNg-6V-bH8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1702" y="-92"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

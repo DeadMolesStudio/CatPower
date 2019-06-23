@@ -17,6 +17,13 @@ func HistoryCellLabel() -> UILabel {
     return label
 }
 
+func HistoryCellTouchable() -> UIButton {
+    let label = UIButton()
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.setTitleColor(.black, for: .normal)
+    return label
+}
+
 func HistoryCellImage() -> UIImageView {
     let iv =  UIImageView(frame: CGRect.zero)
     iv.translatesAutoresizingMaskIntoConstraints = false

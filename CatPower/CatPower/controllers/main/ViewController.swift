@@ -8,6 +8,7 @@
 
 
 import UIKit
+import CoreData
 
 class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -31,10 +32,29 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         // для дебага, кажыдй раз после логина удаляем ключ чтобы проверить авторизацию при новом запуске
-        UserDefaults.standard.removeObject(forKey: TOKEN_KEY)
+//        UserDefaults.standard.removeObject(forKey: TOKEN_KEY)
         self.collectionView.dragDelegate = self
         self.collectionView.dropDelegate = self
         self.collectionView.dragInteractionEnabled = true
+        
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "UserModel")
+        
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            for data in result as! [NSManagedObject] {
+                print(data.value(forKey: "username") as! String)
+                print(data.value(forKey: "email") as! String)
+                print(data.value(forKey: "password") as! String)
+            }
+        } catch {
+            print("Failed")
+        }
+        
     }
 
     private func setupNavBarItems() {
@@ -61,12 +81,21 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             CATransaction.setCompletionBlock {
                 self.isPushing = false
             }
+            
             let vc = HistoryView.init(collectionViewLayout: GridLayout())
+//            let vc = storyboard?.instantiateViewController(withIdentifier: "HistoryVC") as! HistoryView
+//            vc.collectionViewLayout = GridLayout()
+            vc.view.backgroundColor = UIColor.white
             self.navigationController?.pushViewController(vc, animated: true)
             CATransaction.commit()
         }
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.collectionView.reloadData()
+    }
+    
     @objc func addMoney(sender: UIButton) {
 
         let alert = UIAlertController(title: "Select category", message: "\n\n\n\n\n\n\n\n\n", preferredStyle: .alert)
@@ -301,7 +330,6 @@ extension ViewController: UICollectionViewDropDelegate {
             destinationIndexPath = IndexPath(row: row, section: section)
         }
         let cell = collectionView.cellForItem(at: destinationIndexPath) as! MoneyView
-        let ms = MoneyService.GetService()
         let source_cell: MoneyView
         if coordinator.items.count == 1, let item = coordinator.items.first, let sourceIndexPath = item.sourceIndexPath {
             source_cell = collectionView.cellForItem(at: sourceIndexPath) as! MoneyView
@@ -318,44 +346,50 @@ extension ViewController: UICollectionViewDropDelegate {
 //        }
         switch coordinator.proposal.operation {
         case .move:
-            let alert = UIAlertController(title: "Amount", message: "Enter amount", preferredStyle: .alert)
-            alert.addTextField { (textField) in
-                textField.placeholder = "amount"
-                textField.keyboardType = .decimalPad
-            }
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { [weak alert] (_) in
-                var money: Int?
-                let textField = alert?.textFields![0]
-                if let text = textField {
-                    if let m = Int(text.text!) {
-                        money = m
-                    } else {
-                        return
-                    }
-                } else {
-                    return
-                }
-                if let value = money {
-                    do {
-                        try ms.transfer(fromString: source_cell.categoryName.text!, toString: cell.categoryName.text!, value: value)
-                        self.collectionView.reloadData()
-                    } catch MoneyServiceError.CategoryNotExists {
-                        print("error: CategoryExists")
-                    } catch {
-                        print("unhandled error 1")
-                        return
-                    }
-                } else {
-                    let alert2 = UIAlertController(title: "error", message: "Bad value! Integers only", preferredStyle: .alert)
-                    alert2.addAction(UIAlertAction(title: "ok", style: .default))
-                    self.present(alert2, animated: true)
-                    return
-                }
-
-            }))
-            alert.addAction(UIAlertAction(title: "cancel", style: .default))
-            present(alert, animated: true)
-
+//            let alert = UIAlertController(title: "Amount", message: "Enter amount", preferredStyle: .alert)
+//            alert.addTextField { (textField) in
+//                textField.placeholder = "amount"
+//                textField.keyboardType = .decimalPad
+//            }
+//            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { [weak alert] (_) in
+//                var money: Int?
+//                let textField = alert?.textFields![0]
+//                if let text = textField {
+//                    if let m = Int(text.text!) {
+//                        money = m
+//                    } else {
+//                        return
+//                    }
+//                } else {
+//                    return
+//                }
+//                if let value = money {
+//                    do {
+//                        try ms.transfer(fromString: source_cell.categoryName.text!, toString: cell.categoryName.text!, value: value)
+//                        self.collectionView.reloadData()
+//                    } catch MoneyServiceError.CategoryNotExists {
+//                        print("error: CategoryExists")
+//                    } catch {
+//                        print("unhandled error 1")
+//                        return
+//                    }
+//                } else {
+//                    let alert2 = UIAlertController(title: "error", message: "Bad value! Integers only", preferredStyle: .alert)
+//                    alert2.addAction(UIAlertAction(title: "ok", style: .default))
+//                    self.present(alert2, animated: true)
+//                    return
+//                }
+//
+//            }))
+//            alert.addAction(UIAlertAction(title: "cancel", style: .default))
+//            present(alert, animated: true)
+            
+            let vc = storyboard?.instantiateViewController(withIdentifier: "SpendingVC") as! SpendingVC
+            vc.from = source_cell.categoryName.text!
+            vc.to = cell.categoryName.text!
+            vc.view.backgroundColor = UIColor.white
+            navigationController?.pushViewController(vc, animated: true)
+            
             break
         default:
             return

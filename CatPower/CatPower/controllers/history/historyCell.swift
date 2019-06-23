@@ -10,18 +10,18 @@ class HistoryCell: UICollectionViewCell {
 
     static let Id = "HistoryCell"
     var operation = Operation()
-//    var from_category: Category = Category()
-//    var to_category: Category = Category()
     var from_image = HistoryCellImage()
     var to_image = HistoryCellImage()
     var deleteButton = CreateRemoveButton(text: "Remove")
-    var textLabel = HistoryCellLabel()
+    var textLabel = HistoryCellTouchable()
     var from_name = HistoryCellLabel()
     var to_name = HistoryCellLabel()
-
+    var parentVC: UIViewController?
+    var storyboard: UIStoryboard?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        print("init")
         contentView.addSubview(from_image)
         contentView.addSubview(to_image)
         contentView.addSubview(textLabel)
@@ -29,7 +29,7 @@ class HistoryCell: UICollectionViewCell {
         contentView.addSubview(from_name)
         contentView.addSubview(to_name)
 
-        textLabel.font = UIFont.boldSystemFont(ofSize: 20)
+//        textLabel.font = UIFont.boldSystemFont(ofSize: 20)
 
         from_image.topAnchor.constraint(equalTo:self.contentView.topAnchor, constant: 10).isActive = true
 //        from_image.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
@@ -45,7 +45,7 @@ class HistoryCell: UICollectionViewCell {
         to_image.trailingAnchor.constraint(equalTo:self.contentView.trailingAnchor, constant:-10).isActive = true
         to_image.widthAnchor.constraint(equalToConstant:64).isActive = true
         to_image.heightAnchor.constraint(equalToConstant:64).isActive = true
-
+        
         to_name.widthAnchor.constraint(equalTo: to_image.widthAnchor).isActive = true
         to_name.topAnchor.constraint(equalTo: to_image.bottomAnchor, constant: 10).isActive = true
         to_name.leadingAnchor.constraint(equalTo: to_image.leadingAnchor).isActive = true
@@ -55,6 +55,7 @@ class HistoryCell: UICollectionViewCell {
         textLabel.heightAnchor.constraint(equalTo: from_image.heightAnchor).isActive = true
         textLabel.leadingAnchor.constraint(equalTo: from_image.trailingAnchor, constant: 10).isActive = true
         textLabel.trailingAnchor.constraint(equalTo: to_image.leadingAnchor, constant: -10).isActive = true
+        
 
         deleteButton.centerYAnchor.constraint(equalTo: from_name.centerYAnchor).isActive = true
         deleteButton.heightAnchor.constraint(equalTo: from_name.heightAnchor).isActive = true
@@ -86,7 +87,20 @@ class HistoryCell: UICollectionViewCell {
         from_name.text = model.From.name
         to_image.image = UIImage(named: model.To.picture)
         to_name.text = model.To.name
-        textLabel.text = "⟶ \(String(model.Value)) ₽ ⟶"
+        textLabel.setTitle("⟶ \(String(model.Value)) ₽ ⟶", for: .normal)
+        textLabel.addTarget(self, action: #selector(openEditView), for: .touchUpInside)
+    }
+    
+    @objc func openEditView() {
+        print("openEditView")
+//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpendingVC") as! SpendingVC
+        let vc = SpendingVC()
+        vc.from = operation.From.name
+        vc.to = operation.To.name
+        vc.photoMini.image = operation.Photo
+        vc.amount.placeholder = String(operation.Value)
+        vc.fromToText = "⟶ \(String(operation.Value)) ₽ ⟶"
+        parentVC?.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -120,7 +134,6 @@ class GridLayout: UICollectionViewFlowLayout {
             return CGSize(width:itemWidth(),height: 100)
         }
     }
-
 
 }
 

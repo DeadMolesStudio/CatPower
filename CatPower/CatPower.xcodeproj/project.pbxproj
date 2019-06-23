@@ -28,6 +28,10 @@
 		BC5DFE2BDC22CD4D21DE52E8 /* buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFC7E343A3955B23E79AB /* buttons.swift */; };
 		E22F8C89227D277300036A55 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F8C88227D277300036A55 /* LoginVC.swift */; };
 		E22F8C8C227D281200036A55 /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F8C8B227D281200036A55 /* SignupVC.swift */; };
+		ED7D723622B7D312003E5A0F /* CatPower.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ED7D723422B7D312003E5A0F /* CatPower.xcdatamodeld */; };
+		EDE582D222B2621200AFF5F3 /* spendingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE582D122B2621200AFF5F3 /* spendingVC.swift */; };
+		EDE582D422B268CD00AFF5F3 /* cameraHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE582D322B268CD00AFF5F3 /* cameraHandler.swift */; };
+		EDE582D622B2F11A00AFF5F3 /* fromToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE582D522B2F11A00AFF5F3 /* fromToView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +58,10 @@
 		BC5DFFE8B656436EFD9D7BA2 /* user.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = user.swift; sourceTree = "<group>"; };
 		E22F8C88227D277300036A55 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		E22F8C8B227D281200036A55 /* SignupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
+		ED7D723522B7D312003E5A0F /* CatPower.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CatPower.xcdatamodel; sourceTree = "<group>"; };
+		EDE582D122B2621200AFF5F3 /* spendingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spendingVC.swift; sourceTree = "<group>"; };
+		EDE582D322B268CD00AFF5F3 /* cameraHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cameraHandler.swift; sourceTree = "<group>"; };
+		EDE582D522B2F11A00AFF5F3 /* fromToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fromToView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +104,7 @@
 				4DBAF5D1226E20F100C1BA36 /* LaunchScreen.storyboard */,
 				4DBAF5D4226E20F100C1BA36 /* Info.plist */,
 				BC5DF64822A43F4F0706B136 /* services */,
+				ED7D723422B7D312003E5A0F /* CatPower.xcdatamodeld */,
 			);
 			path = CatPower;
 			sourceTree = "<group>";
@@ -149,6 +158,7 @@
 		E22F8C81227D266A00036A55 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EDE582D022B2619400AFF5F3 /* spending */,
 				E22F8C8A227D27E100036A55 /* signup */,
 				E22F8C84227D26A400036A55 /* login */,
 				BC5DFC1DD3CD644278EB6FC5 /* main */,
@@ -190,6 +200,16 @@
 				E22F8C8B227D281200036A55 /* SignupVC.swift */,
 			);
 			path = signup;
+			sourceTree = "<group>";
+		};
+		EDE582D022B2619400AFF5F3 /* spending */ = {
+			isa = PBXGroup;
+			children = (
+				EDE582D122B2621200AFF5F3 /* spendingVC.swift */,
+				EDE582D322B268CD00AFF5F3 /* cameraHandler.swift */,
+				EDE582D522B2F11A00AFF5F3 /* fromToView.swift */,
+			);
+			path = spending;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,15 +291,19 @@
 				BC5DF1E76592CD0CDBF2A8F1 /* textFields.swift in Sources */,
 				BC5DF7212A02B8AD60B33EC3 /* auth-service.swift in Sources */,
 				BC5DFC1249A2AC4D11390BF1 /* user.swift in Sources */,
+				EDE582D422B268CD00AFF5F3 /* cameraHandler.swift in Sources */,
 				BC5DF13D220DEF7CE5D3BF13 /* CategoryModel.swift in Sources */,
 				BC5DFBF6BAA9CCB59127B8CA /* DefaultData.swift in Sources */,
+				ED7D723622B7D312003E5A0F /* CatPower.xcdatamodeld in Sources */,
 				BC5DF6B919A125BABE2F683E /* ViewController.swift in Sources */,
 				BC5DF5FFE63841EA181FFD03 /* MoneyView.swift in Sources */,
 				BC5DF42F7DEA20999A7253AA /* money-service.swift in Sources */,
+				EDE582D622B2F11A00AFF5F3 /* fromToView.swift in Sources */,
 				BC5DF633A74DC9616A60C68F /* history.swift in Sources */,
 				BC5DF7BCED2D51FB80E80010 /* addCategoryVC.swift in Sources */,
 				BC5DFC5A68A0F252BA2D1738 /* historyVC.swift in Sources */,
 				BC5DF8A91F7F5159C8F05565 /* historyCell.swift in Sources */,
+				EDE582D222B2621200AFF5F3 /* spendingVC.swift in Sources */,
 				BC5DF73A17F931D689A322BF /* historyCell-settings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,8 +451,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = DZEFCCAQ9W;
 				INFOPLIST_FILE = CatPower/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -436,7 +461,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = DeadMolesStudio.CatPower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -445,8 +470,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = DZEFCCAQ9W;
 				INFOPLIST_FILE = CatPower/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -454,7 +480,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = DeadMolesStudio.CatPower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -480,6 +506,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		ED7D723422B7D312003E5A0F /* CatPower.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				ED7D723522B7D312003E5A0F /* CatPower.xcdatamodel */,
+			);
+			currentVersion = ED7D723522B7D312003E5A0F /* CatPower.xcdatamodel */;
+			path = CatPower.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4DBAF5BD226E20EF00C1BA36 /* Project object */;
 }

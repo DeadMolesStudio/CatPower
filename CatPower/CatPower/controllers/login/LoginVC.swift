@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class LoginVC: UIViewController {
 
@@ -19,6 +20,26 @@ class LoginVC: UIViewController {
     // Изначально хотел сделать contentView внутри ScrollView, но ScrollView перехватывает клики...
     var scrollView: UIScrollView = UIScrollView()
 
+    
+    func checkAvailableUsers() {
+        print("checkAvailableUsers")
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "UserModel")
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            for data in result as! [NSManagedObject] {
+                print(data.value(forKey: "username") as! String)
+                print(data.value(forKey: "email") as! String)
+                print(data.value(forKey: "password") as! String)
+            }
+        } catch {
+            print("Failed")
+        }
+        print("end of checkAvailableUsers")
+    }
 
     func setupViews() {
 
@@ -67,7 +88,7 @@ class LoginVC: UIViewController {
         view.addSubview(LoginButton)
 
         self.SignupButton = CreateDefaultButton(text: "SignUp")
-        SignupButton.addTarget(self, action: #selector(GoToSignUpView), for: .allTouchEvents)
+        SignupButton.addTarget(self, action: #selector(GoToSignUpView), for: .touchUpInside)
         view.addSubview(SignupButton)
 
     }
@@ -116,7 +137,8 @@ class LoginVC: UIViewController {
             return
         }
 
-        var user = Auth.login(username: username, password: password)
+        let user = Auth.login(username: username, password: password)
+        print("try to login", user)
         if user != nil {
             let vc = storyboard?.instantiateViewController(withIdentifier: "MainVC") as! ViewController
             vc.user = user!

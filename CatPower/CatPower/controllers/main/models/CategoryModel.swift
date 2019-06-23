@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CoreData
+import UIKit
 
 class Category: NSObject, NSCoding {
     var name: String = ""
@@ -43,6 +45,13 @@ class Category: NSObject, NSCoding {
         self.picture = other.picture
         self.isIncome = other.isIncome
     }
+    
+    init(fromCategoryEntity: NSManagedObject) {
+        self.name = fromCategoryEntity.value(forKey: "name") as? String ?? ""
+        self.value = fromCategoryEntity.value(forKey: "value") as? Int ?? 0
+        self.picture = fromCategoryEntity.value(forKey: "picture") as? String ?? ""
+        self.isIncome = fromCategoryEntity.value(forKey: "isIncome") as? Bool ?? true
+    }
 
     required convenience init(coder aDecoder: NSCoder) {
         let name = aDecoder.decodeObject(forKey: "name") as! String
@@ -52,6 +61,17 @@ class Category: NSObject, NSCoding {
         self.init(name: name, value: value, isIncome: isIncome, picture: picture)
     }
 
+    static func CategoryEntity(fromCategoryStr: CategoryStr, managedContext: NSManagedObjectContext) -> NSManagedObject? {     
+        let categoryEntity = NSEntityDescription.entity(forEntityName: "CategoryModel", in: managedContext)!
+        let category = NSManagedObject(entity: categoryEntity, insertInto: managedContext)
+        category.setValue(fromCategoryStr.isIncome, forKey: "isIncome")
+        category.setValue(fromCategoryStr.name, forKey: "name")
+        category.setValue(fromCategoryStr.picture, forKey: "picture")
+        category.setValue(fromCategoryStr.value, forKey: "value")
+        category.setValue(Auth.getCurrentUserEntity(), forKey: "owner")
+        return category
+    }
+    
     func encode(with aCoder: NSCoder) {
         aCoder.encode(name, forKey: "name")
         aCoder.encode(value, forKey: "value")

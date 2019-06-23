@@ -7,12 +7,26 @@ import Foundation
 import UIKit
 
 class HistoryView: UICollectionViewController {
+    
+//    required init() {
+//        super.init(collectionViewLayout: GridLayout())
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        super.init(coder: coder)
+//    }
+//
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(HistoryCell.self, forCellWithReuseIdentifier: HistoryCell.Id)
         setup()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        collectionView.reloadData()
+    }
+    
     func setup() {
         self.collectionView.backgroundColor = .white
     }
@@ -20,6 +34,8 @@ class HistoryView: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HistoryCell.Id, for: indexPath) as! HistoryCell
         let operation = History.GetHistory().Operations[indexPath.row]
         cell.configure(from: operation)
+        cell.parentVC = self
+        cell.storyboard = storyboard
         return cell
     }
 

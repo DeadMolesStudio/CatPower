@@ -13,7 +13,8 @@ func CreateDefaultButton(text: String) -> UIButton {
     button.setTitle(text, for: .normal)
     button.translatesAutoresizingMaskIntoConstraints = false
     // для дебага
-    button.layer.borderWidth = 3
+    button.layer.borderWidth = 1
+    button.layer.cornerRadius = 5
     button.layer.borderColor = UIColor.blue.cgColor
     return button
 }
@@ -22,7 +23,10 @@ func CreateRemoveButton(text: String) -> UIButton {
     let button = UIButton(type: .system)
     button.setTitle(text, for: .normal)
     button.translatesAutoresizingMaskIntoConstraints = false
-    button.backgroundColor = .red
-    button.titleLabel?.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+//    button.backgroundColor = .red
+    button.layer.borderColor = UIColor.red.cgColor
+    button.layer.cornerRadius = 5
+    button.layer.borderWidth = 1
+    button.titleLabel?.textColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1) // doesnt work
     return button
 }
