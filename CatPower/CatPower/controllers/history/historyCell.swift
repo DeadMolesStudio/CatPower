@@ -98,8 +98,12 @@ class HistoryCell: UICollectionViewCell {
         vc.from = operation.From.name
         vc.to = operation.To.name
         vc.photoMini.image = operation.Photo
-        vc.amount.placeholder = String(operation.Value)
+        vc.defaultAmountValue = String(operation.Value)
+//        vc.amount.setValue(<#T##value: Any?##Any?#>, forKey: <#T##String#>) = String(operation.Value)
         vc.fromToText = "⟶ \(String(operation.Value)) ₽ ⟶"
+        vc.view.backgroundColor = UIColor.white
+        vc.operationID = operation.id
+
         parentVC?.navigationController?.pushViewController(vc, animated: true)
     }
 }

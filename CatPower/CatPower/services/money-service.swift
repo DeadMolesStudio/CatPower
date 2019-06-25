@@ -150,7 +150,7 @@ class MoneyService {
         return category
     }
 
-    func transfer(from: Category, to: Category, value: Int, photo: UIImage) throws {
+    func transfer(from: Category, to: Category, value: Int, photo: UIImage, id: UUID?) throws {
         let from_category_index: Int? = self.incomes.firstIndex {$0.name == from.name}
         let from_item:Category
         if let fci = from_category_index {
@@ -171,16 +171,22 @@ class MoneyService {
         }
         from_item.value -= value
         to_item.value += value
-        let op = Operation(from: from_item, to: to_item, value: value, photo: photo)
+        var op: Operation
+        if id == nil {
+           op = Operation(from: from_item, to: to_item, value: value, photo: photo)
+        } else {
+            print("CREATE OPERATIONS WITH ID WTFFFFFF")
+            op = Operation(from: from_item, to: to_item, value: value, id: id!, photo: photo)
+        }
         History.GetHistory().addOrUpdateOperation(operation: op)
     }
 
-    func transfer(fromString: String, toString: String, value: Int, photo: UIImage) throws {
+    func transfer(fromString: String, toString: String, value: Int, photo: UIImage, id: UUID!) throws {
         let from = Category()
         from.name = fromString
         let to = Category()
         to.name = toString
-        try self.transfer(from: from, to: to, value: value, photo: photo)
+        try self.transfer(from: from, to: to, value: value, photo: photo, id: id)
     }
 
     func addMoney(to category: Category, amount money: Int) {

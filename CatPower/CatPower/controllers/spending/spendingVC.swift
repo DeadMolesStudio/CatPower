@@ -13,11 +13,13 @@ class SpendingVC: UIViewController {
     
 //    var fromLabel: UILabel = UILabel()
 //    var toLabel: UILabel = UILabel()
+    var operationID: UUID!
     var fromTo: FromToView!
     var fromToText: String = "⟶ ? ⟶"
     var amount: UITextField = UITextField()
+    var defaultAmountValue: String! = nil
 //    var applyButton: UIButton = UIButton()
-    var applyButton: UIBarButtonItem = UIBarButtonItem(title: "Ok", style: .done, target: self, action: #selector(GoToMainView))
+    var applyButton: UIBarButtonItem = UIBarButtonItem(title: "Ok", style: .done, target: self, action: #selector(GoToMainViewFromSpendingVC))
 
     var cameraButton: UIButton = UIButton()
     var cameraHandler: CameraHandler = CameraHandler()
@@ -63,6 +65,9 @@ class SpendingVC: UIViewController {
         
         // Create items
         self.amount = CreateTextField(placeholder: "Сколько потратили?")
+        if (self.defaultAmountValue != nil) {
+            self.amount.text = self.defaultAmountValue
+        }
         self.amount.keyboardType = .decimalPad
         view.addSubview(self.amount)
         
@@ -113,7 +118,7 @@ class SpendingVC: UIViewController {
     }
     
     
-    @objc func showMini(image: UIImage) {
+    func showMini(image: UIImage) {
         print("showMini")
         self.photoMini.image = image
     }
@@ -122,7 +127,8 @@ class SpendingVC: UIViewController {
         cameraHandler.showActionSheet(vc: self)
     }
 
-    @objc func GoToMainView(sender: UIButton) {
+    @objc func GoToMainViewFromSpendingVC(sender: UIButton) {
+        print("GoToMainViewFromSpendingVC")
         //validating fields
         if (self.amount.text == nil || self.amount.text?.isEmpty == true) {
             self.amount.layer.borderColor = UIColor.red.cgColor
@@ -135,7 +141,7 @@ class SpendingVC: UIViewController {
                 money = m
                 let photo = self.photoMini.image!
                 do {
-                    try ms.transfer(fromString: from, toString: to, value: money, photo: photo)
+                    try ms.transfer(fromString: from, toString: to, value: money, photo: photo, id: self.operationID)
                 } catch MoneyServiceError.CategoryNotExists {
                     print("error: CategoryExists")
                 } catch {
@@ -147,8 +153,9 @@ class SpendingVC: UIViewController {
             }
         }
 
-    
+        print("okolo popview")
         navigationController?.popViewController(animated: true)
+        print("posle popview")
     }
     
 }

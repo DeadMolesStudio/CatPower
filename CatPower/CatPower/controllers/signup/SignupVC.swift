@@ -98,7 +98,7 @@ class SignupVC: UIViewController {
         view.addSubview(BackToLoginButton)
 
         self.SignupButton = CreateDefaultButton(text: "SignUp")
-        SignupButton.addTarget(self, action: #selector(GoToMainView), for: .touchUpInside)
+        SignupButton.addTarget(self, action: #selector(GoToMainViewFromSignup), for: .touchUpInside)
         view.addSubview(SignupButton)
     }
 
@@ -157,8 +157,9 @@ class SignupVC: UIViewController {
     @objc func GoToLogin(sender: UIButton) {
         dismiss(animated: true)
     }
+    
 
-    @objc func GoToMainView(sender: UIButton) {
+    @objc func GoToMainViewFromSignup(sender: UIButton) {
         
         let username = self.usernameTextInput.text!
         let password = self.passwordInput.text!

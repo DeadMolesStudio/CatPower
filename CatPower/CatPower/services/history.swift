@@ -71,7 +71,27 @@ class History {
         let operation = NSManagedObject(entity: operationEntity, insertInto: managedContext)
         operation.setValue(newOperation.Value, forKey: "value")
         operation.setValue(newOperation.id, forKey: "id")
-        operation.setValue("path_to_photo.png", forKey: "photo")
+        
+        operation.setValue(newOperation.Photo!.pngData() ?? UIImage(named: "default.png")?.pngData(), forKey: "photo")
+        
+//        if newOperation.Photo != nil {
+//            if let data = newOperation.Photo!.pngData() {
+//
+////                let filename = getDocumentsDirectory().appendingPathComponent(newOperation.id.uuidString + ".png")
+//               let filename = newOperation.id.uuidString + ".png"
+//
+//                do {
+//                    try data.write(to: URL(string: filename)!)
+//                } catch {
+//                    print("FAIL WHILE WRITE TO FILE")
+//                }
+//
+//                operation.setValue(filename, forKey: "photo")
+//            }
+//        } else {
+//            operation.setValue("default.png", forKey: "photo")
+//
+//        }
         
         let currentUserEntity = Auth.getCurrentUserEntity()
         operation.setValue(currentUserEntity, forKey: "owner")
@@ -79,7 +99,7 @@ class History {
         let from = newOperation.FromEntity!
         operation.setValue(from, forKey: "from")
 
-        print("from: ", from.value(forKey: "name"))
+//        print("from: ", from.value(forKey: "name"))
         var curFromValue = from.value(forKey: "value") as! Int
         curFromValue -= newOperation.Value
         from.setValue(curFromValue, forKey: "value")
@@ -87,7 +107,7 @@ class History {
         let to = newOperation.ToEntity!
         operation.setValue(to, forKey: "to")
 
-        print("to: ", to.value(forKey: "name"))
+//        print("to: ", to.value(forKey: "name"))
 
         var curToValue = to.value(forKey: "value") as! Int
         curToValue += newOperation.Value
@@ -125,7 +145,7 @@ class History {
             do {
                 try managedContext.save()
             } catch {
-                print("FAILED WHILE SAVE INI DELETE OPERATOIN")
+                print("FAILED WHILE SAVE IN DELETE OPERATOIN")
             }
         } catch {
             print("Failed")
@@ -134,8 +154,13 @@ class History {
     
     func addOrUpdateOperation(operation: Operation) {
         let index = self.Operations.firstIndex(where: {$0.id == operation.id})
-        if let i = index {
-            self.Operations.remove(at: i)
+        print("operationID: ", operation.id, " addOrUpdate. operations: ")
+        for op in self.Operations {
+            print(op.id)
+        }
+        if index != nil {
+            let findAndDeleted = self.removeOperation(operation: operation)
+            print("FIND AND REMOVE WHILE UPDATE:", findAndDeleted)
         }
         self.addOperation(operation: operation)
     }
@@ -360,12 +385,13 @@ func getCurrentUserOperations() -> [Operation] {
                 picture: toCategoryEntity.value(forKey: "picture") as! String
             )
 
+            let photoData = data.value(forKey: "photo") as! Data
             let op = Operation(
                 from: fromCategory,
                 to: toCategory,
                 value: data.value(forKey: "value") as! Int,
                 id: data.value(forKey: "id") as! UUID,
-                photo: UIImage()
+                photo: UIImage(data: photoData) ?? UIImage()
             )
             operationsFromCoreData.append(op)
         }
@@ -373,4 +399,9 @@ func getCurrentUserOperations() -> [Operation] {
         print("Failed")
     }
     return operationsFromCoreData
+}
+
+func getDocumentsDirectory() -> URL {
+    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    return paths[0]
 }
