@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Gloss
 
 class LoginVC: UIViewController {
 
@@ -143,8 +144,61 @@ class LoginVC: UIViewController {
             let vc = storyboard?.instantiateViewController(withIdentifier: "MainVC") as! ViewController
             vc.user = user!
             let navVC = UINavigationController(rootViewController: vc)
+            doTestRequest()
             present(navVC, animated: true, completion: nil)
         }
+    }
+    
+    func doTestRequest() {
+        let sourceURL = "http://127.0.0.1:5000/api/info"
+        
+        struct SimpleModel: JSONDecodable {
+            let authors: [String]
+        
+            init(authors: [String]?) {
+                self.authors = authors ?? [String]()
+            }
+        
+            init?(json: JSON) {
+                guard let authors: String = "authors" <~~ json else {
+                    return nil
+                }
+                
+                self.authors = authors
+            }
+        }
+    
+    
+        var data: [SimpleModel] = []
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+    
+        
+        session.dataTask(with: URL(string: sourceURL)!) { [weak self] data, resp, err in
+            guard err == nil else {
+                Log.error("error getting file: \(err!)")
+                return
+            }
+            
+            guard let data = data, let _models = try? JSONSerialization.jsonObject(with: data, options: .allowFragments), let models = _models as? [[String: Any]] else {
+                return
+            }
+            
+            var dataKek = models.map { m in
+                return SimpleModel(authors: m["authors"] as? [String])
+            }
+            //            guard let data = data, let models = [SimpleModel].from(data: data) else {
+            //                return
+            //            }
+            //
+            //            self?.data = models
+            for name in dataKek[0] {
+                print(name)
+            }
+            DispatchQueue.main.async {
+    //            self?.tableView.reloadData()
+            }
+        }.resume()
+        
     }
 
     @objc func GoToSignUpView(sender: UIButton) {
