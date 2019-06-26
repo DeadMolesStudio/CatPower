@@ -107,11 +107,14 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         pickerView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         alert.view.addSubview(pickerView)
         alert.addTextField { (textField) in
-            textField.placeholder = "amount"
-            textField.keyboardType = .decimalPad
+            textField.placeholder = "Amount"
+            textField.keyboardType = .numberPad
         }
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
+            if pickerView.numberOfRows(inComponent: 0) == 0 {
+                return
+            }
             if let text = textField {
                 let category = MoneyService.GetService().incomes[pickerView.selectedRow(inComponent: 0)]
 
@@ -227,7 +230,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: index) as! MoneyView
             let alert = UIAlertController(title: "Add Category", message: "Enter a category name", preferredStyle: .alert)
             alert.addTextField { (textField) in
-                textField.placeholder = "category name"
+                textField.placeholder = "Category name"
             }
             alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { [weak alert] (_) in
                 let textField = alert?.textFields![0]
@@ -241,7 +244,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                     return
                 }
                 if category.name.count > 12 {
-                    let alert2 = UIAlertController(title: "Error", message: "Name to long(>12)", preferredStyle: .alert)
+                    let alert2 = UIAlertController(title: "Error", message: "Name to long (>12)", preferredStyle: .alert)
                     alert2.addAction(UIAlertAction(title: "OK", style: .default))
                     self.present(alert2, animated: true)
                     return
@@ -269,8 +272,8 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                         try MoneyService.GetService().addCostCategory(with: category)
                     } catch MoneyServiceError.NameExists {
                         print("name exists ")
-                        let alert2 = UIAlertController(title: "error", message: "This category exists", preferredStyle: .alert)
-                        alert2.addAction(UIAlertAction(title: "ok", style: .default))
+                        let alert2 = UIAlertController(title: "Error", message: "This category exists", preferredStyle: .alert)
+                        alert2.addAction(UIAlertAction(title: "OK", style: .default))
                         self.present(alert2, animated: true)
                     } catch {
                         print("Unhandeled error")

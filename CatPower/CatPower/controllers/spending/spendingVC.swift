@@ -19,7 +19,7 @@ class SpendingVC: UIViewController {
     var amount: UITextField = UITextField()
     var defaultAmountValue: String! = nil
 //    var applyButton: UIButton = UIButton()
-    var applyButton: UIBarButtonItem = UIBarButtonItem(title: "Ok", style: .done, target: self, action: #selector(GoToMainViewFromSpendingVC))
+    var applyButton: UIBarButtonItem = UIBarButtonItem(title: "OK", style: .done, target: self, action: #selector(GoToMainViewFromSpendingVC))
 
     var cameraButton: UIButton = UIButton()
     var cameraHandler: CameraHandler = CameraHandler()
@@ -64,14 +64,13 @@ class SpendingVC: UIViewController {
 
         
         // Create items
-        self.amount = CreateTextField(placeholder: "Сколько потратили?")
+        self.amount = CreateTextField(placeholder: "How much?", type: .numberPad)
         if (self.defaultAmountValue != nil) {
             self.amount.text = self.defaultAmountValue
         }
-        self.amount.keyboardType = .decimalPad
         view.addSubview(self.amount)
         
-        self.cameraButton = CreateDefaultButton(text: "Добавить фото")
+        self.cameraButton = CreateDefaultButton(text: "Add photo")
         self.cameraButton.addTarget(self, action: #selector(openCamera), for: .touchUpInside)
         view.addSubview(self.cameraButton)
         
@@ -81,6 +80,7 @@ class SpendingVC: UIViewController {
         photoMini.layer.cornerRadius = 8.0
         photoMini.clipsToBounds = true
         view.addSubview(self.photoMini)
+        photoMini.alpha = 0.0
         
         self.navigationItem.rightBarButtonItem = self.applyButton
 
@@ -121,6 +121,7 @@ class SpendingVC: UIViewController {
     func showMini(image: UIImage) {
         print("showMini")
         self.photoMini.image = image
+        photoMini.alpha = 1.0
     }
     
     @objc private func openCamera() {
@@ -138,6 +139,12 @@ class SpendingVC: UIViewController {
         } else {
             var money: Int
             if let m = Int(self.amount.text!) {
+                guard m > 0 else {
+                    amount.layer.borderColor = UIColor.red.cgColor
+                    amount.layer.cornerRadius = 5.0
+                    amount.layer.borderWidth = 1.0
+                    return
+                }
                 money = m
                 let photo = self.photoMini.image!
                 do {
