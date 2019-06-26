@@ -11,11 +11,13 @@ import UIKit
 
 class SpendingVC: UIViewController {
     
-//    var fromLabel: UILabel = UILabel()
-//    var toLabel: UILabel = UILabel()
+    var fromLabel: UILabel = UILabel()
+    var toLabel: UILabel = UILabel()
     var operationID: UUID!
     var fromTo: FromToView!
     var fromToText: String = "⟶ ? ⟶"
+    var fromAmount: String = ""
+    var toAmount: String = ""
     var amount: UITextField = UITextField()
     var defaultAmountValue: String! = nil
 //    var applyButton: UIButton = UIButton()
@@ -59,7 +61,7 @@ class SpendingVC: UIViewController {
         let operation: Operation = ms.configureOperationByCategories(fromString: from, toString: to)
         self.fromTo = FromToView(frame: CGRect(x: 0 , y: 0, width:  UIScreen.main.bounds.width - 40, height: 100))
         self.fromTo.configure(from: operation)
-        self.fromTo.textLabel.text = self.fromToText
+        self.fromTo.textLabel.text = self.fromAmount + " " + self.fromToText + " " + self.toAmount
         view.addSubview(self.fromTo)
 
         
@@ -80,7 +82,6 @@ class SpendingVC: UIViewController {
         photoMini.layer.cornerRadius = 8.0
         photoMini.clipsToBounds = true
         view.addSubview(self.photoMini)
-        photoMini.alpha = 0.0
         
         self.navigationItem.rightBarButtonItem = self.applyButton
 
@@ -121,7 +122,6 @@ class SpendingVC: UIViewController {
     func showMini(image: UIImage) {
         print("showMini")
         self.photoMini.image = image
-        photoMini.alpha = 1.0
     }
     
     @objc private func openCamera() {
@@ -136,6 +136,7 @@ class SpendingVC: UIViewController {
             self.amount.layer.borderWidth = 1.5
             self.amount.layer.cornerRadius = 5
             self.amount.placeholder = "Input amount of spending!"
+            return
         } else {
             var money: Int
             if let m = Int(self.amount.text!) {

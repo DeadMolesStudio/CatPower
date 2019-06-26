@@ -395,6 +395,8 @@ extension ViewController: UICollectionViewDropDelegate {
             let vc = storyboard?.instantiateViewController(withIdentifier: "SpendingVC") as! SpendingVC
             vc.from = source_cell.categoryName.text!
             vc.to = cell.categoryName.text!
+            vc.fromAmount = source_cell.value.text!
+            vc.toAmount = cell.value.text!
             vc.view.backgroundColor = UIColor.white
             navigationController?.pushViewController(vc, animated: true)
             
