@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,6 +26,7 @@
 		BC5DFC1249A2AC4D11390BF1 /* user.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFFE8B656436EFD9D7BA2 /* user.swift */; };
 		BC5DFC5A68A0F252BA2D1738 /* historyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DF6BA221242C738626A34 /* historyVC.swift */; };
 		BC5DFE2BDC22CD4D21DE52E8 /* buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DFC7E343A3955B23E79AB /* buttons.swift */; };
+		BFA892273E7F79DFB2BBB94F /* Pods_CatPower.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75721F93AE782A9CDAF49FA0 /* Pods_CatPower.framework */; };
 		E22F8C89227D277300036A55 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F8C88227D277300036A55 /* LoginVC.swift */; };
 		E22F8C8C227D281200036A55 /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F8C8B227D281200036A55 /* SignupVC.swift */; };
 		ED7D723622B7D312003E5A0F /* CatPower.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ED7D723422B7D312003E5A0F /* CatPower.xcdatamodeld */; };
@@ -42,6 +43,8 @@
 		4DBAF5D2226E20F100C1BA36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4DBAF5D4226E20F100C1BA36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DBAF5DE226F2A0D00C1BA36 /* picture */ = {isa = PBXFileReference; lastKnownFileType = folder; path = picture; sourceTree = "<group>"; };
+		75721F93AE782A9CDAF49FA0 /* Pods_CatPower.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CatPower.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		85B373D5559BEF3D2985EE3B /* Pods-CatPower.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatPower.debug.xcconfig"; path = "Target Support Files/Pods-CatPower/Pods-CatPower.debug.xcconfig"; sourceTree = "<group>"; };
 		BC5DF1BF71CE57DCEE2E6545 /* auth-service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "auth-service.swift"; sourceTree = "<group>"; };
 		BC5DF22966F9B044C1A0390E /* textFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = textFields.swift; sourceTree = "<group>"; };
 		BC5DF301FCFBD0217DE0347F /* history.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = history.swift; sourceTree = "<group>"; };
@@ -62,6 +65,7 @@
 		EDE582D122B2621200AFF5F3 /* spendingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spendingVC.swift; sourceTree = "<group>"; };
 		EDE582D322B268CD00AFF5F3 /* cameraHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cameraHandler.swift; sourceTree = "<group>"; };
 		EDE582D522B2F11A00AFF5F3 /* fromToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fromToView.swift; sourceTree = "<group>"; };
+		EE32D36ECA03D5C7DDF6333A /* Pods-CatPower.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatPower.release.xcconfig"; path = "Target Support Files/Pods-CatPower/Pods-CatPower.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFA892273E7F79DFB2BBB94F /* Pods_CatPower.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +85,8 @@
 			children = (
 				4DBAF5C7226E20EF00C1BA36 /* CatPower */,
 				4DBAF5C6226E20EF00C1BA36 /* Products */,
+				DDE6000318A4A8EC4B2A0BC4 /* Pods */,
+				884E1DDFBA2CA18AFABE6CA5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -107,6 +114,14 @@
 				ED7D723422B7D312003E5A0F /* CatPower.xcdatamodeld */,
 			);
 			path = CatPower;
+			sourceTree = "<group>";
+		};
+		884E1DDFBA2CA18AFABE6CA5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				75721F93AE782A9CDAF49FA0 /* Pods_CatPower.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BC5DF64822A43F4F0706B136 /* services */ = {
@@ -153,6 +168,15 @@
 				BC5DF8790DACBE9FC2F177D8 /* MoneyView.swift */,
 			);
 			path = main;
+			sourceTree = "<group>";
+		};
+		DDE6000318A4A8EC4B2A0BC4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				85B373D5559BEF3D2985EE3B /* Pods-CatPower.debug.xcconfig */,
+				EE32D36ECA03D5C7DDF6333A /* Pods-CatPower.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		E22F8C81227D266A00036A55 /* controllers */ = {
@@ -219,9 +243,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4DBAF5D7226E20F100C1BA36 /* Build configuration list for PBXNativeTarget "CatPower" */;
 			buildPhases = (
+				FF34F0FBD11C910A202356A9 /* [CP] Check Pods Manifest.lock */,
 				4DBAF5C1226E20EF00C1BA36 /* Sources */,
 				4DBAF5C2226E20EF00C1BA36 /* Frameworks */,
 				4DBAF5C3226E20EF00C1BA36 /* Resources */,
+				454B1C207D3BFE61F522D571 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -278,6 +304,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		454B1C207D3BFE61F522D571 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CatPower/Pods-CatPower-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CatPower/Pods-CatPower-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CatPower/Pods-CatPower-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF34F0FBD11C910A202356A9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CatPower-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4DBAF5C1226E20EF00C1BA36 /* Sources */ = {
@@ -448,6 +516,7 @@
 		};
 		4DBAF5D8226E20F100C1BA36 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 85B373D5559BEF3D2985EE3B /* Pods-CatPower.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -458,6 +527,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = DeadMolesStudio.CatPower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -467,6 +537,7 @@
 		};
 		4DBAF5D9226E20F100C1BA36 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE32D36ECA03D5C7DDF6333A /* Pods-CatPower.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -477,6 +548,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = DeadMolesStudio.CatPower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

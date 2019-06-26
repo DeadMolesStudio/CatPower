@@ -191,6 +191,7 @@ class MoneyService {
 
     func addMoney(to category: Category, amount money: Int) {
         category.value += money
+        History.GetHistory().addMoney(category: category, valueToAdd: money)
         self.save()
     }
     

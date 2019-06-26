@@ -184,6 +184,59 @@ class SignupVC: UIViewController {
         }
     }
     
+//    func sendSignupRequest() {
+//        print("doTestRequest()")
+//        let sourceURL = "https://playketnipz.ru/api/v1/"
+//
+//        struct SimpleModel: JSONDecodable {
+//            let authors: [String]
+//            
+//            init(authors: [String]?) {
+//                self.authors = authors ?? [String]()
+//            }
+//
+//            init?(json: JSON) {
+//                guard let authors: [String] = "authors" <~~ json else {
+//                    return nil
+//                }
+//
+//                self.authors = authors
+//            }
+//        }
+//
+//        
+//        var data: [SimpleModel] = []
+//        let session = URLSession(configuration: URLSessionConfiguration.default)
+//
+//
+//        session.dataTask(with: URL(string: sourceURL)!) { [weak self] data, resp, err in
+//            guard err == nil else {
+//                print("error getting file: \(err!)")
+//                return
+//            }
+//
+//            guard let data = data, let _models = try? JSONSerialization.jsonObject(with: data, options: .allowFragments), let models = _models as? [[String: Any]] else {
+//                return
+//            }
+//            
+//            var dataKek = models.map { m in
+//                return SimpleModel(authors: m["authors"] as? [String])
+//            }
+//            //            guard let data = data, let models = [SimpleModel].from(data: data) else {
+//            //                return
+//            //            }
+//            //
+//            //            self?.data = models
+//            for name in dataKek {
+//                print("PP", name.authors[0])
+//            }
+//            DispatchQueue.main.async {
+//                //            self?.tableView.reloadData()
+//            }
+//            }.resume()
+//
+//    }
+    
     private func createDefaultCategoriesForUser() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -209,8 +262,10 @@ class SignupVC: UIViewController {
         user.setValue(self.emailInput.text!, forKey: "email")
         user.setValue(self.usernameTextInput.text!, forKey: "username")
         user.setValue(self.passwordInput.text!, forKey: "password")
-        user.setValue(token, forKey: "token")
+//        user.setValue(token, forKey: "token")
 
+        
+        
         Auth.setToken(token: token)
         
         do {

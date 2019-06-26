@@ -1,0 +1,16 @@
+PODS:
+  - Gloss (2.1.1)
+
+DEPENDENCIES:
+  - Gloss (from `../`)
+
+EXTERNAL SOURCES:
+  Gloss:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Gloss: 3700ba5294a38a8ec4eeadebed8d33e11f9c0936
+
+PODFILE CHECKSUM: 5519d5acd7de6c0bdeabcb119669505eb744020d
+
+COCOAPODS: 1.7.2

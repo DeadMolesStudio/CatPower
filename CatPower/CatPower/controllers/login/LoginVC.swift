@@ -150,6 +150,7 @@ class LoginVC: UIViewController {
     }
     
     func doTestRequest() {
+        print("doTestRequest()")
         let sourceURL = "http://127.0.0.1:5000/api/info"
         
         struct SimpleModel: JSONDecodable {
@@ -160,7 +161,7 @@ class LoginVC: UIViewController {
             }
         
             init?(json: JSON) {
-                guard let authors: String = "authors" <~~ json else {
+                guard let authors: [String] = "authors" <~~ json else {
                     return nil
                 }
                 
@@ -175,7 +176,7 @@ class LoginVC: UIViewController {
         
         session.dataTask(with: URL(string: sourceURL)!) { [weak self] data, resp, err in
             guard err == nil else {
-                Log.error("error getting file: \(err!)")
+                print("error getting file: \(err!)")
                 return
             }
             
@@ -191,8 +192,8 @@ class LoginVC: UIViewController {
             //            }
             //
             //            self?.data = models
-            for name in dataKek[0] {
-                print(name)
+            for name in dataKek {
+                print("PP", name.authors[0])
             }
             DispatchQueue.main.async {
     //            self?.tableView.reloadData()

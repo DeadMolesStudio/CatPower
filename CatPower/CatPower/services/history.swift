@@ -182,6 +182,34 @@ class History {
         return true
 
     }
+    
+    func addMoney(category: Category, valueToAdd: Int) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let currentUsername = Auth.getCurrentUserEntity()?.value(forKey: "username") as? String ?? "ANON"
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CategoryModel")
+        let categoryPredicate = NSPredicate(format: "name=%@", category.name)
+        let ownerPredicate = NSPredicate(format: "owner.username=%@", currentUsername)
+        let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [ownerPredicate, categoryPredicate])
+        
+        fetchRequest.predicate = andPredicate
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            for data in result as! [NSManagedObject] {
+                let value = data.value(forKey: "value") as! Int
+                data.setValue(value + valueToAdd, forKey: "value")
+            }
+            do {
+                try managedContext.save()
+            } catch {
+                print("FAILED WHILE SAVE IN DELETE OPERATOIN")
+            }
+        } catch {
+            print("Failed")
+        }
+    }
 }
 
 class Operation: NSObject, NSCoding {
