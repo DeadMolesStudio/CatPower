@@ -77,18 +77,18 @@ class LoginVC: UIViewController {
         }()
         view.addSubview(teamLabel)
 
-        self.usernameTextInput = CreateTextField(placeholder: "username")
+        self.usernameTextInput = CreateTextField(placeholder: "Username")
         view.addSubview(usernameTextInput)
 
-        self.passwordInput = CreateTextField(placeholder: "password")
+        self.passwordInput = CreateTextField(placeholder: "Password")
         passwordInput.isSecureTextEntry = true
         view.addSubview(passwordInput)
 
-        self.LoginButton = CreateDefaultButton(text: "Login")
+        self.LoginButton = CreateDefaultButton(text: "Log in")
         LoginButton.addTarget(self, action: #selector(GoToMainView), for: .touchUpInside)
         view.addSubview(LoginButton)
 
-        self.SignupButton = CreateDefaultButton(text: "SignUp")
+        self.SignupButton = CreateDefaultButton(text: "Sign up")
         SignupButton.addTarget(self, action: #selector(GoToSignUpView), for: .touchUpInside)
         view.addSubview(SignupButton)
 
@@ -115,30 +115,23 @@ class LoginVC: UIViewController {
     }
 
     @objc func GoToMainView(sender: UIButton) {
-        var username: String = ""
-        var password: String = ""
-
         //validating fields
-        if self.usernameTextInput.text == nil || self.usernameTextInput.text?.isEmpty == true{
-            self.usernameTextInput.layer.borderColor = UIColor.red.cgColor
-            self.usernameTextInput.layer.borderWidth = 2
-            self.usernameTextInput.placeholder = "Input username!"
-        } else {
-            username = self.usernameTextInput.text!
+        var areEmpty = false
+        for elem in [usernameTextInput, passwordInput] {
+            elem.layer.borderWidth = 1.0
+            elem.layer.cornerRadius = 5.0
+            if elem.text!.isEmpty {
+                elem.layer.borderColor = UIColor.red.cgColor
+                areEmpty = true
+            } else {
+                elem.layer.borderColor = UIColor.clear.cgColor
+            }
         }
-        if self.passwordInput.text == nil || self.passwordInput.text?.isEmpty == true {
-            self.passwordInput.layer.borderColor = UIColor.red.cgColor
-            self.passwordInput.layer.borderWidth = 2
-            self.passwordInput.placeholder = "Input password!"
-        } else {
-            password = self.passwordInput.text!
-        }
-
-        if username.isEmpty || password.isEmpty {
+        if areEmpty {
             return
         }
 
-        let user = Auth.login(username: username, password: password)
+        let user = Auth.login(username: usernameTextInput.text!, password: passwordInput.text!)
         print("try to login", user)
         if user != nil {
             let vc = storyboard?.instantiateViewController(withIdentifier: "MainVC") as! ViewController

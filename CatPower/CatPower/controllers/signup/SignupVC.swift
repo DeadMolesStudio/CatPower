@@ -79,25 +79,25 @@ class SignupVC: UIViewController {
         }()
         view.addSubview(teamLabel)
 
-        self.usernameTextInput = CreateTextField(placeholder: "username")
+        self.usernameTextInput = CreateTextField(placeholder: "Username")
         view.addSubview(usernameTextInput)
 
-        self.emailInput = CreateTextField(placeholder: "email")
+        self.emailInput = CreateTextField(placeholder: "Email", type: .emailAddress)
         view.addSubview(emailInput)
 
-        self.passwordInput = CreateTextField(placeholder: "password")
+        self.passwordInput = CreateTextField(placeholder: "Password")
         passwordInput.isSecureTextEntry = true
         view.addSubview(passwordInput)
 
-        self.repeatPasswordInput = CreateTextField(placeholder: "repeat password")
+        self.repeatPasswordInput = CreateTextField(placeholder: "Repeat password")
         repeatPasswordInput.isSecureTextEntry = true
         view.addSubview(repeatPasswordInput)
 
-        self.BackToLoginButton = CreateDefaultButton(text: "BackToLogin")
+        self.BackToLoginButton = CreateDefaultButton(text: "Back to login")
         BackToLoginButton.addTarget(self, action: #selector(GoToLogin), for: .touchUpInside)
         view.addSubview(BackToLoginButton)
 
-        self.SignupButton = CreateDefaultButton(text: "SignUp")
+        self.SignupButton = CreateDefaultButton(text: "Sign up")
         SignupButton.addTarget(self, action: #selector(GoToMainViewFromSignup), for: .touchUpInside)
         view.addSubview(SignupButton)
     }
@@ -160,15 +160,29 @@ class SignupVC: UIViewController {
     
 
     @objc func GoToMainViewFromSignup(sender: UIButton) {
+        var areEmpty = false
+        for elem in [usernameTextInput, emailInput, passwordInput, repeatPasswordInput] {
+            elem.layer.borderWidth = 1.0
+            elem.layer.cornerRadius = 5.0
+            if elem.text!.isEmpty {
+                elem.layer.borderColor = UIColor.red.cgColor
+                areEmpty = true
+            } else {
+                elem.layer.borderColor = UIColor.clear.cgColor
+            }
+        }
+        if areEmpty {
+            return
+        }
         
-        let username = self.usernameTextInput.text!
-        let password = self.passwordInput.text!
-        
-        if (username.isEmpty ||
-            self.emailInput.text!.isEmpty ||
-            password.isEmpty) { return }
-        if (self.passwordInput.text! != self.repeatPasswordInput.text!) { return }
-        
+        if (self.passwordInput.text! != self.repeatPasswordInput.text!) {
+            let alert = UIAlertController(title: "Incorrect", message: "Passwords do not match", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+                alert?.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alert, animated: true)
+            return
+        }
     
         self.saveUserAndToken()
         self.createDefaultCategoriesForUser()

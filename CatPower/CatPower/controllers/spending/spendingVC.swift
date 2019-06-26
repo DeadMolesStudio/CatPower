@@ -72,7 +72,7 @@ class SpendingVC: UIViewController {
         view.addSubview(self.amount)
         
         self.cameraButton = CreateDefaultButton(text: "Добавить фото")
-        self.cameraButton.addTarget(self, action: #selector(openCamera), for: .allTouchEvents)
+        self.cameraButton.addTarget(self, action: #selector(openCamera), for: .touchUpInside)
         view.addSubview(self.cameraButton)
         
         photoMini.backgroundColor = UIColor(red: 230 / 255, green: 230 / 255, blue: 230 / 255, alpha: 1.0)

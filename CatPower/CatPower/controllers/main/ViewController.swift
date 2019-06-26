@@ -63,13 +63,13 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         sidebarButton.tintColor = UIColor.gray
         sidebarButton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
         sidebarButton.setBackgroundImage(sideBarPicture, for: .normal)
-        sidebarButton.addTarget(self, action: #selector(goToHistory), for: .allTouchEvents)
+        sidebarButton.addTarget(self, action: #selector(goToHistory), for: .touchUpInside)
 
         let addMoneyPicture = UIImage(named: "money.png")
         addMoneyButton.tintColor = UIColor.gray
         addMoneyButton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
         addMoneyButton.setBackgroundImage(addMoneyPicture, for: .normal)
-        addMoneyButton.addTarget(self, action: #selector(addMoney), for: .allTouchEvents)
+        addMoneyButton.addTarget(self, action: #selector(addMoney), for: .touchUpInside)
 
     }
     var isPushing = false
@@ -110,7 +110,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             textField.placeholder = "amount"
             textField.keyboardType = .decimalPad
         }
-        alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { [weak alert] (_) in
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
             if let text = textField {
                 let category = MoneyService.GetService().incomes[pickerView.selectedRow(inComponent: 0)]
@@ -130,6 +130,9 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
 //            self.collectionView.reloadData()
         }))
         self.present(alert, animated: true)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { [weak alert] (_) in
+            alert?.dismiss(animated: true, completion: nil)
+        }))
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -232,14 +235,14 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 category.value = 0
                 category.name = textField!.text!
                 if category.name.count == 0 {
-                    let alert2 = UIAlertController(title: "error", message: "No name provided", preferredStyle: .alert)
-                    alert2.addAction(UIAlertAction(title: "ok", style: .default))
+                    let alert2 = UIAlertController(title: "Error", message: "No name provided", preferredStyle: .alert)
+                    alert2.addAction(UIAlertAction(title: "OK", style: .default))
                     self.present(alert2, animated: true)
                     return
                 }
                 if category.name.count > 12 {
-                    let alert2 = UIAlertController(title: "error", message: "Name to long(>12)", preferredStyle: .alert)
-                    alert2.addAction(UIAlertAction(title: "ok", style: .default))
+                    let alert2 = UIAlertController(title: "Error", message: "Name to long(>12)", preferredStyle: .alert)
+                    alert2.addAction(UIAlertAction(title: "OK", style: .default))
                     self.present(alert2, animated: true)
                     return
                 }
@@ -254,8 +257,8 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                         try MoneyService.GetService().addIncomeCategory(with: category)
                     } catch MoneyServiceError.NameExists {
                         print("name exists ")
-                        let alert2 = UIAlertController(title: "error", message: "This category exists", preferredStyle: .alert)
-                        alert2.addAction(UIAlertAction(title: "ok", style: .default))
+                        let alert2 = UIAlertController(title: "Error", message: "This category exists", preferredStyle: .alert)
+                        alert2.addAction(UIAlertAction(title: "OK", style: .default))
                         self.present(alert2, animated: true)
                     } catch {
                         print("Unhandeled error")
@@ -278,7 +281,9 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 self.collectionView.reloadData()
             }))
             self.present(alert, animated: true, completion: nil)
-
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { [weak alert] (_) in
+                alert?.dismiss(animated: true, completion: nil)
+            }))
         }
     }
 

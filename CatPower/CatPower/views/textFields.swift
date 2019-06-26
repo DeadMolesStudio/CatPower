@@ -6,11 +6,11 @@
 import Foundation
 import UIKit
 
-func CreateTextField(placeholder: String) -> UITextField {
+func CreateTextField(placeholder: String, type: UIKeyboardType = .default) -> UITextField {
     let text = UITextField()
     text.placeholder = placeholder
     text.translatesAutoresizingMaskIntoConstraints = false
     text.borderStyle = UITextField.BorderStyle.roundedRect
-    text.keyboardType = UIKeyboardType.default
+    text.keyboardType = type
     return text
 }

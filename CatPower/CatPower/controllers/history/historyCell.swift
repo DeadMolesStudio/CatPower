@@ -62,7 +62,7 @@ class HistoryCell: UICollectionViewCell {
         deleteButton.leadingAnchor.constraint(equalTo: from_image.trailingAnchor, constant: 10).isActive = true
         deleteButton.trailingAnchor.constraint(equalTo: to_image.leadingAnchor, constant: -10).isActive = true
 
-        deleteButton.addTarget(self, action: #selector(removeOperation), for: .allTouchEvents)
+        deleteButton.addTarget(self, action: #selector(removeOperation), for: .touchUpInside)
 
     }
 
